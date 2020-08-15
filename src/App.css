@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+
+.recharts-wrapper {
+  margin : 0 auto;
+}
+
+.container {
+  margin: 80px auto 0 auto;
+  max-width: 1200px;
+}
+
+.nav-container {
+  margin: auto;
+  
+}
+
