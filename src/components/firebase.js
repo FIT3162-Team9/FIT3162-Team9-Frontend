@@ -22,3 +22,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+export const getMaxTemp = async (station='IDCJAC0010', setMaxTemp) => {
+  const db = firebase.firestore();
+
+  const max_ref = db.collection('temperature').doc('max').collection(station);
+  return max_ref.onSnapshot((snapshot) => {
+    const maxTemp = [];
+    snapshot.forEach((doc) => maxTemp.push({ ...doc.data(), id: doc.id }));
+    console.log('Fetched all data');
+    setMaxTemp(maxTemp);
+  });
+}
