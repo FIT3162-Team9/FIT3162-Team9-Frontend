@@ -37,10 +37,8 @@ function formatXAxis(tickItem) {
 
 
 export default ({ data }) => (
-    <ResponsiveContainer height={300} width="50%">
-      <AreaChart data={data}
-        margin={{ top: 5, right: 30, left: 30, bottom: 5 }}>
-
+  <ResponsiveContainer height={300} width="60%" className="nav-container">
+      <AreaChart data={data} >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="1%" stopColor="#FAD6A5" stopOpacity={0.8} />

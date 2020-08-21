@@ -6,8 +6,8 @@ import './App.css';
 //Navigation Bar/Pages https://www.youtube.com/watch?v=TAcOTvQJH-U
 //Pages 
 import home from './pages/home';
-import bushfire from './pages/bushfire';
-import visualisation from './pages/visualisation';
+import Bushfire from './pages/bushfire';
+import Temperature from './pages/Temperature';
 
 class App extends Component{
   render() {
@@ -19,8 +19,8 @@ class App extends Component{
           
             <Switch>
               <Route exact path ="/" component={home}/>
-              <Route exact path ="/bushfire" component={bushfire}/>
-              <Route exact path ="/visualisation" component={visualisation}/>
+              <Route exact path ="/bushfire" component={Bushfire}/>
+              <Route exact path ="/Temperature" component={Temperature}/>
           </Switch>
           </div>
       </Router>
