@@ -16,10 +16,8 @@ const useStyles = makeStyles(themes=> ({
   }))
 
 function DatePicker(props){
-
     const classes = useStyles();
     return(
-        
         <form className={classes.container} noValidate>
             <TextField
                 id="date"
