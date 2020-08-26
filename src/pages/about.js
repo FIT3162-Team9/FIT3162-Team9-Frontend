@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-function Bushfire(props) {
+function About(props) {
         return (
             <div>
-                
+               
             </div>
         )
     
 }
 
-export default Bushfire
+export default About

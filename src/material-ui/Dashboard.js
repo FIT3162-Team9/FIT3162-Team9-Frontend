@@ -22,7 +22,13 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import './../fonts/Quicksand-Regular.ttf'
+import './../fonts/Quicksand-Regular.ttf';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import home from './../pages/home';
+import Bushfire from './../pages/bushfire';
+import Temperature from './../pages/Temperature';
+import About from './../pages/about';
+
 
 function Copyright() {
   return (
@@ -155,6 +161,7 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
+    <Router>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -180,66 +187,81 @@ export default function Dashboard() {
             color="inherit"
             noWrap
             className={classes.title}
-          
           >
-            DASHBOARD
+            <Switch>
+              <Route exact path ="/">DASHBOARD</Route>
+              <Route exact path ="/temperature">VISUALISATION </Route>
+              <Route exact path ="/bushfire">PREDICTION</Route>
+              <Route exact path ="/about">ABOUT</Route>
+            </Switch>
           </Typography>
           
         </Toolbar>
       </AppBar>
       
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-       <Typography
-            component="h1"
-            variant="h5"
-            color="white"
-            className={classes.appName}
-          >
-            SPARK
-          </Typography>
-        {/* <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div> */}
-        <List className={classes.mainItems}>{mainListItems}</List>
-        {/* <List>{secondaryListItems}</List> */}
-      </Drawer>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+        <Typography
+              component="h1"
+              variant="h5"
+              color="white"
+              className={classes.appName}
+            >
+              SPARK
+            </Typography>
+          {/* <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div> */}
+          <List className={classes.mainItems}>{mainListItems}</List>
+          {/* <List>{secondaryListItems}</List> */}
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          
+            <Switch>
+              <Route exact path ="/" component={home}/>
+              <Route exact path ="/bushfire" component={Bushfire}/>
+              <Route exact path ="/temperature" component={Temperature}/>
+              <Route exact path ="/about" component={About}/>
+            </Switch>
+          
+          {/* <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              Chart 
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={fixedHeightPaper}>
+                  <Chart />
+                </Paper>
+              </Grid>
+              Recent Deposits
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper className={fixedHeightPaper}>
+                  <Deposits />
+                </Paper>
+              </Grid>
+              Recent Orders 
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Orders />
+                </Paper>
+              </Grid>
+            </Grid>
+            <Box pt={4}>
+              <Copyright />
+            </Box>
+          </Container> */}
+
+        </main>
       
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
     </div>
+    </Router>
+    
   );
 }

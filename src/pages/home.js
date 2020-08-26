@@ -4,7 +4,7 @@ import Dashboard from "./../material-ui/Dashboard";
 class home extends Component {
     render() {
         return (
-            <Dashboard/>
+            <div></div>
         )
     }
 }
