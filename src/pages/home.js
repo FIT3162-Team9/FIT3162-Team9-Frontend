@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import Dashboard from "./../material-ui/Dashboard";
 
 class home extends Component {
     render() {
         return (
-            <div>
-                <h1>Home Page</h1>
-            </div>
+            <Dashboard/>
         )
     }
 }
