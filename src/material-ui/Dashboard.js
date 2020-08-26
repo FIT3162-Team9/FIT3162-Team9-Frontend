@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, formatMs } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -28,7 +28,11 @@ import home from './../pages/home';
 import Bushfire from './../pages/bushfire';
 import Temperature from './../pages/Temperature';
 import About from './../pages/about';
+import "./../App.css";
 
+
+//Base Template from Material-UI
+//https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates
 
 function Copyright() {
   return (
@@ -53,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   
   toolbar: {
-    background: "linear-gradient(to right, #40C9BF, rgba(7,71,67,.6))",
+    background: "linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))",
     paddingRight: 24, // keep right padding when drawer closed
     
   },
@@ -86,12 +90,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   title: {
+    color:'#255C59',
     fontFamily: 'Quicksand',
     paddingLeft: '40px',
     flexGrow: 1,
   },
   drawerPaper: {
-    background: "linear-gradient( #40C9BF, rgba(7,71,67,.37))",
+    background: "linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth ,
@@ -137,7 +142,8 @@ const useStyles = makeStyles((theme) => ({
   appName:{
     fontFamily: 'Quicksand',
     fontSize: '28px',
-    color: 'white',
+    transform: '[{rotate: -90deg}]',
+    color: '#255C59',
     textAlign: 'center',
     paddingTop: '16px',
   },
@@ -198,7 +204,6 @@ export default function Dashboard() {
           
         </Toolbar>
       </AppBar>
-      
         <Drawer
           variant="permanent"
           classes={{
@@ -212,7 +217,7 @@ export default function Dashboard() {
               color="white"
               className={classes.appName}
             >
-              SPARK
+              SP△RK
             </Typography>
           {/* <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>

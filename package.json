@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "firebase": "^7.17.2",
+    "jquery": "^3.5.1",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-datepicker": "^3.1.3",

@@ -52,3 +52,7 @@
   
 }
 
+.logo:first-word{
+  transform: rotate(-90deg);
+  color: black;
+}
