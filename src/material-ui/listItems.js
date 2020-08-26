@@ -7,6 +7,9 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import InfoIcon from '@material-ui/icons/Info';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Link from 'react-router-dom/Link'
@@ -23,19 +26,19 @@ export const mainListItems = (
       </ListItem>
       <ListItem button component={Link} to="/temperature">
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <WbSunnyIcon />
         </ListItemIcon>
         <ListItemText primary="Temperature" />
       </ListItem>
       <ListItem button component={Link} to="/bushfire" >
         <ListItemIcon>
-          <PeopleIcon />
+          <WhatshotIcon />
         </ListItemIcon>
         <ListItemText primary="Bushfire Risk" />
       </ListItem>
       <ListItem button component={Link} to="/about">
         <ListItemIcon>
-          <BarChartIcon />
+          <InfoIcon />
         </ListItemIcon>
         <ListItemText primary="About" />
       </ListItem>
