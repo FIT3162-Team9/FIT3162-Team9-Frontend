@@ -14,7 +14,6 @@ function Visualisation(props){
 
     return(
         <div>
-            <h1>Max Temp</h1>
             {(maxTemp.length !== 0) ? (<Chart data={maxTemp}/>) : (<CircularProgress/>)}
         </div>
     )

@@ -19,11 +19,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
+import Items from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import './../fonts/Quicksand-Regular.ttf';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import home from './../pages/home';
 import Bushfire from './../pages/bushfire';
 import Temperature from './../pages/Temperature';
@@ -53,13 +54,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: 'Quicksand',
     display: 'flex',
-    
   },
-  
   toolbar: {
     background: "linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))",
     paddingRight: 24, // keep right padding when drawer closed
-    
   },
   toolbarIcon: {
     display: 'flex',
@@ -148,22 +146,29 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '16px',
   },
   mainItems:{
-    paddingTop: '60px',
-    paddingLeft: '10px',
+    padding: '60px 8px',
     textAlign: 'center',
     color: 'white',
+  },
+  test:{
+     fontSize: '100px',
   }
 }));
 
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  
+  const handleSelectedPage = () => {
+    console.log("works");
+   };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -201,7 +206,6 @@ export default function Dashboard() {
               <Route exact path ="/about">ABOUT</Route>
             </Switch>
           </Typography>
-          
         </Toolbar>
       </AppBar>
         <Drawer
@@ -224,19 +228,17 @@ export default function Dashboard() {
               <ChevronLeftIcon />
             </IconButton>
           </div> */}
-          <List className={classes.mainItems}>{mainListItems}</List>
+          <List className={classes.mainItems}> <Items action={handleSelectedPage} /> </List>
           {/* <List>{secondaryListItems}</List> */}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          
             <Switch>
               <Route exact path ="/" component={home}/>
               <Route exact path ="/bushfire" component={Bushfire}/>
               <Route exact path ="/temperature" component={Temperature}/>
               <Route exact path ="/about" component={About}/>
             </Switch>
-          
           {/* <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
               Chart 
@@ -262,9 +264,7 @@ export default function Dashboard() {
               <Copyright />
             </Box>
           </Container> */}
-
         </main>
-      
     </div>
     </Router>
     

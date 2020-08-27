@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import DatePicker from 'react-datepicker';
+import Container from '@material-ui/core/Container';
 import 'react-datepicker/dist/react-datepicker.css'
 
 const useStyles = makeStyles(theme => ({
@@ -19,6 +20,11 @@ const useStyles = makeStyles(theme => ({
       width: 'auto',
   
     },
+
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
   }))
 
 function Temperature(props) {
@@ -26,7 +32,6 @@ function Temperature(props) {
   const [endDate, setEndDate] = useState("2020");
   const [temporaryStartDate, setTemporaryStartDate] = useState(null);
   const [temporaryEndDate, setTemporaryEndDate] = useState(null);
-
 
   //Requires attention: Year of start date should be earlier than year of end date.  
   const handleSubmit = (e) =>{
@@ -45,50 +50,59 @@ function Temperature(props) {
   }
 
   const classes = useStyles()
+
   const autoHeightPaper = clsx(classes.paper, classes.autoHeight)
         return (
-            <div>
-                <Grid item xs={12} >
-                  <Paper className={autoHeightPaper}>
-                    {/* Requires attention: Redundancy */}
-                    <div key={startDate}>
-                      <div key={endDate}>
-                        <Visualisation startDate={startDate} endDate={endDate}/>
-                      </div>
-                    </div>   
-                  </Paper>   
-                  <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                      <label>Start date: </label>
-                      <DatePicker 
-                        selected={temporaryStartDate} 
-                        onChange={handleChange}
-                        minDate={new Date(2000,1,1)}
-                        maxDate={new Date()}
-                        showYearDropdown
-                        scrollableYearDropdown
-                        isClearable
-                        /> 
-                    </div>
-                    <div>
-                      <label>End date : </label>
-                      <DatePicker 
-                        selected={temporaryEndDate} 
-                        onChange={handleChangeE}
-                        minDate={new Date(2000,1,1)}
-                        maxDate={new Date()}
-                        showYearDropdown
-                        scrollableYearDropdown
-                        isClearable
-                        /> 
-                    </div>
-                    <div>
-                      <input type="submit" />
-                    </div>
-                  </form>
-                </Grid>
-            </div>
-           
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={autoHeightPaper}>
+                  <Visualisation startDate={"2019"} endDate={"2020"}/>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
+            // <div>
+            //     <Grid item xs={12} >
+            //       <Paper className={autoHeightPaper}>
+            //         {/* Requires attention: Redundancy */}
+            //         <div key={startDate}>
+            //           <div key={endDate}>
+            //             <Visualisation startDate={startDate} endDate={endDate}/>
+            //           </div>
+            //         </div>   
+            //       </Paper>   
+            //       <form onSubmit={handleSubmit}>
+            //         <div className="form-group">
+            //           <label>Start date: </label>
+            //           <DatePicker 
+            //             selected={temporaryStartDate} 
+            //             onChange={handleChange}
+            //             minDate={new Date(2000,1,1)}
+            //             maxDate={new Date()}
+            //             showYearDropdown
+            //             scrollableYearDropdown
+            //             isClearable
+            //             /> 
+            //         </div>
+            //         <div>
+            //           <label>End date : </label>
+            //           <DatePicker 
+            //             selected={temporaryEndDate} 
+            //             onChange={handleChangeE}
+            //             minDate={new Date(2000,1,1)}
+            //             maxDate={new Date()}
+            //             showYearDropdown
+            //             scrollableYearDropdown
+            //             isClearable
+            //             /> 
+            //         </div>
+            //         <div>
+            //           <input type="submit" />
+            //         </div>
+            //       </form>
+            //     </Grid>
+            // </div>
         )
 }
 
