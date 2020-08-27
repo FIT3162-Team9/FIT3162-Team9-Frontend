@@ -104,7 +104,6 @@ function Items(props) {
   const [stateBushfire, setStateBushfire] = React.useState(false);
   const [stateAbout, setStateAbout] = React.useState(false);
   
-  const pass = () => {}
   const disableBar = () =>{
     setStateDashboard(false);
     setStateTemperature(false);
@@ -112,46 +111,46 @@ function Items(props) {
     setStateAbout(false);
   }
 
-  const handleSelectedPage = (e) => {
-    if (e.target.innerHTML === "Dashboard"&& !stateDashboard){
+  const handleSelectedPage = (id) => {
+    if (id === "Dashboard" && !stateDashboard){
       disableBar();
       setStateDashboard(!stateDashboard);
     }
-    else if(e.target.innerHTML === "Temperature"&& !stateTemperature){
+    else if(id === "Temperature"&& !stateTemperature){
       disableBar();
       setStateTemperature(!stateTemperature);
     }
-    else if(e.target.innerHTML === "Bushfire Risk"&& !stateBushfire){
+    else if(id === "Bushfire"&& !stateBushfire){
       disableBar();
       setStateBushfire(!stateBushfire);
     }
-    else if(e.target.innerHTML === "About" && !stateAbout){
+    else if(id === "About" && !stateAbout){
         disableBar();
         setStateAbout(!stateAbout);
     }
   };
 
-  return ( //Clicking edge of buttton is not triggering 
+  return ( 
     <div>
-      <ListItem button className={stateDashboard ? classes.active:classes.nonactive} onClick={handleSelectedPage} component={Link} to="/" >
+      <ListItem button id={"Dashboard"} className={stateDashboard ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("Dashboard")} component={Link} to="/" >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-      <ListItem button className={stateTemperature ? classes.active:classes.nonactive} onClick={handleSelectedPage} component={Link} to="/temperature">
+      <ListItem button id={"Temperature"} className={stateTemperature ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("Temperature")} component={Link} to="/temperature">
         <ListItemIcon>
           <WbSunnyIcon />
         </ListItemIcon>
         <ListItemText primary="Temperature" />
       </ListItem>
-      <ListItem button className={stateBushfire ? classes.active:classes.nonactive} onClick={handleSelectedPage} component={Link} to="/bushfire" >
+      <ListItem button id={"Bushfire"} className={stateBushfire ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("Bushfire")} component={Link} to="/bushfire" >
         <ListItemIcon>
           <WhatshotIcon/>
         </ListItemIcon>
         <ListItemText primary="Bushfire Risk" />
       </ListItem>
-      <ListItem button className={stateAbout ? classes.active:classes.nonactive} onClick={handleSelectedPage} component={Link} to="/about">
+      <ListItem button id={"About"} className={stateAbout ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("About")} component={Link} to="/about">
         <ListItemIcon>
           <InfoIcon />
         </ListItemIcon>
