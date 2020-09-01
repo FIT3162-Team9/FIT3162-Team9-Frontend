@@ -21,8 +21,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Items from './listItems';
 import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
 import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import home from './../pages/home';
@@ -56,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    background: "linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))",
+    background: "linear-gradient(to right,rgba(7,71,67,.7),#40C9BF )", //"linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))"
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
@@ -88,13 +86,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   title: {
-    color:'#255C59',
+    color: 'white',//'#255C59',
     fontFamily: 'Quicksand',
-    paddingLeft: '40px',
+    paddingRight: '1450px',
     flexGrow: 1,
   },
   drawerPaper: {
-    background: "linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
+    background: "linear-gradient(  rgb(32,150,160) ,rgb(7,71,67,.6), rgb(7,71,67,.6), rgb(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth ,
@@ -116,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
+    fontFamily: 'Quicksand',
     backgroundColor:
       theme.palette.type === 'light'
         ? theme.palette.grey[100]
@@ -141,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Quicksand',
     fontSize: '28px',
     transform: '[{rotate: -90deg}]',
-    color: '#255C59',
+    color: 'white',//'#255C59',
     textAlign: 'center',
     paddingTop: '16px',
   },
@@ -221,7 +220,7 @@ export default function Dashboard() {
               color="white"
               className={classes.appName}
             >
-              SP△RK
+              S P △ R K
             </Typography>
           {/* <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>

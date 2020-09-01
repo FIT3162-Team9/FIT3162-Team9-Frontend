@@ -16,7 +16,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   active:{
-     backgroundColor: 'rgba(7,71,67,.5)',
+     backgroundColor: 'rgb(19, 61, 82,.7)',
      borderRadius: '18px',
      paddingTop: '1px',
      paddingBottom: '1px',
@@ -38,7 +38,12 @@ const useStyles = makeStyles((theme) => ({
      paddingBottom: '1px',
      marginTop:'10px',
      paddingRight: '1px',
-  }
+  },
+  textFont:{
+    fontFamily: 'Quicksand',
+    fontSize: '17px',
+    color: 'white',
+  },
 }));
 
 
@@ -136,25 +141,25 @@ function Items(props) {
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText disableTypography className={classes.textFont} primary="Dashboard" />
       </ListItem>
       <ListItem button id={"Temperature"} className={stateTemperature ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("Temperature")} component={Link} to="/temperature">
         <ListItemIcon>
           <WbSunnyIcon />
         </ListItemIcon>
-        <ListItemText primary="Temperature" />
+        <ListItemText disableTypography className={classes.textFont} primary="Temperature" />
       </ListItem>
       <ListItem button id={"Bushfire"} className={stateBushfire ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("Bushfire")} component={Link} to="/bushfire" >
         <ListItemIcon>
           <WhatshotIcon/>
         </ListItemIcon>
-        <ListItemText primary="Bushfire Risk" />
+        <ListItemText disableTypography className={classes.textFont}  primary="Bushfire Risk" />
       </ListItem>
       <ListItem button id={"About"} className={stateAbout ? classes.active:classes.nonactive} onClick={() => handleSelectedPage("About")} component={Link} to="/about">
         <ListItemIcon>
           <InfoIcon />
         </ListItemIcon>
-        <ListItemText primary="About" />
+        <ListItemText disableTypography className={classes.textFont}  primary="About" />
       </ListItem>
   
   </div>

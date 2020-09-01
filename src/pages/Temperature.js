@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: '0px',
     },
     autoHeight: {
-      height: 'auto',
+      height: '350px',
       width: 'auto',
   
     },
