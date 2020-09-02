@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{Component,useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
   Chart,
@@ -17,7 +17,7 @@ import {
 } from 'd3-shape';
 import { scalePoint } from 'd3-scale';
 
-import { bushfire as data } from './data/data-visualisation';
+
 // import { bitcoin as data } from './data/data-visualisation';
 //https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/spline/
 
@@ -88,44 +88,36 @@ const demoStyles = () => ({
   },
 });
 
-class BushfireChart extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default function BushfireChart(props) {
+  const [chartData,setData] = useState(props.weather[3]);
 
-    this.state = {
-      data,
-    };
-  }
+  const handleFFDI = () => {
 
-
-  render() {
-    const { data: chartData } = this.state;
-    const { classes } = this.props;
-
+  }  
     return (
       <Paper>
         <Chart
           data={chartData}
-          className={classes.chart}
         >
           <ArgumentScale factory={scalePoint} />
           <ArgumentAxis />
           <ValueAxis />
 
           <LineSeries
-            name="Relative Humidity (%)"
+            name={"RH: " + props.weather[0] + "%"}
             valueField="hydr"
             argumentField="year"
             seriesComponent={Line}
           />
           <LineSeries
-            name="Bushfire Ratings"
+            name={"Wind speed: " + props.weather[1] + "km/h"}
             valueField="usa"
             argumentField="year"
             seriesComponent={Line}
           />
+          
           <LineSeries
-            name="Wind Speed (km/h)"
+            name={"Drought factor: " + props.weather[2]}
             valueField="gas"
             argumentField="year"
             seriesComponent={Line}
@@ -133,6 +125,12 @@ class BushfireChart extends React.PureComponent {
           <LineSeries
             name="Temperature"
             valueField="Temperature"
+            argumentField="year"
+            seriesComponent={Line}
+          />
+          <LineSeries
+            name="Bushfire"
+            valueField="Bushfire"
             argumentField="year"
             seriesComponent={Line}
           />
@@ -152,7 +150,6 @@ class BushfireChart extends React.PureComponent {
       </Paper>
    
     );
-  }
+  
 }
 
-export default withStyles(demoStyles, { name: 'Demo' })(BushfireChart);

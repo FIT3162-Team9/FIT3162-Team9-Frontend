@@ -4,7 +4,12 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { WiWindy } from "react-icons/wi";
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +108,7 @@ const IOSSlider = withStyles({
 
 const WindSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: 'tomato',
     height: 8,
   },
   thumb: {
@@ -164,7 +169,7 @@ const HumiditySlider = withStyles({
 
 const DroughtSlider = withStyles({
   root: {
-    color: 'orange',
+    color: '#52af77',
     height: 8,
   },
   thumb: {
@@ -239,28 +244,24 @@ function AirbnbThumbComponent(props) {
   );
 }
 
-export default function CustomizedSlider() {
+export default function CustomizedSlider(props) {
   const classes = useStyles();
-
-  const [stateDrought, setStateDrought] = useState(20);
- 
-
-  const setSlider = (e,val) => {
-    console.log(val)
-  }
 
   return (
     <div className={classes.root}>
-      <Typography gutterBottom>Relative Humidity (%) </Typography>
-      <HumiditySlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+      <div style={{fontSize: '13px'}}>
+          <h1>Weather</h1>
+      </div>
+      <Typography  gutterBottom>Relative humidity (%)</Typography>
+      <HumiditySlider onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       {/* <Typography gutterBottom>iOS</Typography>
       <IOSSlider aria-label="ios slider" defaultValue={60} marks={marks} valueLabelDisplay="on" /> */}
       <div className={classes.margin} />
-      <Typography gutterBottom>Wind speed (km/h)</Typography>
-      <WindSlider min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+      <Typography  gutterBottom>Wind speed (km/h)</Typography>
+      <WindSlider onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       <div className={classes.margin} />
       <Typography gutterBottom>Drought factor</Typography>
-      <DroughtSlider onChange={setSlider} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+      <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       {/* <Typography gutterBottom>Tooltip value label</Typography>
       <Slider
         ValueLabelComponent={ValueLabelComponent}
