@@ -55,7 +55,7 @@ function Temperature(props) {
         return (
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={12} lg={12}>
                 <Paper className={autoHeightPaper}>
                   <Visualisation startYear={2019} endYear={2020}/>
                 </Paper>

@@ -23,28 +23,28 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const getMaxTemp = async (station='IDCJAC0010', setMaxTemp, startAt, endAt) => {
-  const db = firebase.firestore();
+// export const getMaxTemp = async (station='IDCJAC0010', setMaxTemp, startAt, endAt) => {
+//   const db = firebase.firestore();
 
-  var max_ref = db.collection('temperature').doc('max').collection(station).orderBy("date").startAt(startAt).endAt(endAt);
+//   var max_ref = db.collection('temperature').doc('max').collection(station).orderBy("date").startAt(startAt).endAt(endAt);
   
-  return max_ref.onSnapshot((snapshot) => {
-    const maxTemp = [];
-    snapshot.forEach((doc) => maxTemp.push({ ...doc.data(), id: doc.id }));
-    console.log('Fetched all data');
-    setMaxTemp(maxTemp);
-  });
-}
+//   return max_ref.onSnapshot((snapshot) => {
+//     const maxTemp = [];
+//     snapshot.forEach((doc) => maxTemp.push({ ...doc.data(), id: doc.id }));
+//     console.log('Fetched all data', maxTemp);
+//     setMaxTemp(maxTemp);
+//   });
+// }
 
-
-export const getTemp = async (station='IDCJAC0010',setMaxTemp) => {
+export const getTemperature = async (station='76031', setTempData, startAt, endAt) => {
   const db = firebase.firestore();
 
-  const max_ref = db.collection('temperature').doc('max').collection(station);
-  return max_ref.onSnapshot((snapshot) => {
-    const maxTemp = [];
-    snapshot.forEach((doc) => maxTemp.push({ ...doc.data(), id: doc.id }));
-    console.log('Fetched all data');
-    setMaxTemp(maxTemp);
+  var tempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
+  
+  return tempStationRef.onSnapshot((snapshot) => {
+    const tempData = [];
+    snapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
+    console.log('Fetched all data', tempData);
+    setTempData(tempData);
   });
 }
