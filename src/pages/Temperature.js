@@ -52,16 +52,17 @@ function Temperature(props) {
   const classes = useStyles()
 
   const autoHeightPaper = clsx(classes.paper, classes.autoHeight)
-        return (
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={autoHeightPaper}>
-                  <Visualisation startDate={"2019"} endDate={"2020"}/>
-                </Paper>
-              </Grid>
-            </Grid>
-          </Container>
+
+  return (
+    <Container maxWidth="lg" className={classes.container}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper className={autoHeightPaper}>
+            <Visualisation/>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
             // <div>
             //     <Grid item xs={12} >
             //       <Paper className={autoHeightPaper}>
