@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import './../App.css'
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  AreaChart, Area, Line, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
@@ -15,7 +15,7 @@ export default ({ data }) => {
   
   return (
       <ResponsiveContainer height={300} width="95%">
-        <AreaChart data={data} >
+        {/* <AreaChart data={data} >
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="1%" stopColor="#FAD6A5" stopOpacity={0.8} />
@@ -31,7 +31,15 @@ export default ({ data }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
           <Area type="monotone" dataKey="min" stroke="#FAD6A5" fillOpacity={1} fill="url(#colorUv)" />
-        </AreaChart>
+        </AreaChart> */}
+        <LineChart data={data}>
+          <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
+          <YAxis unit='°C' />
+          <Tooltip />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+          <Line type="monotone" dataKey="max" stroke={'#8884d8'} dot={false}/>
+          <Line type="monotone" dataKey="min" stroke={'#82ca9d'} dot={false}/>
+        </LineChart>
       </ResponsiveContainer>
   )
 }
