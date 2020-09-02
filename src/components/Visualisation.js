@@ -7,7 +7,7 @@ function Visualisation(props){
     const [maxTemp, setMaxTemp] = useState([]);
     const [minTemp, setMinTemp] = useState([]);
     useEffect(() => {
-        getMaxTemp('IDCJAC0010', setMaxTemp, props.startDate.toString(),props.endDate.toString())
+        getMaxTemp('IDCJAC0010', setMaxTemp, props.startYear.toString(),props.endYear.toString())
     }, [])
     {console.log('maxTemp:', maxTemp)}
     console.log(maxTemp)

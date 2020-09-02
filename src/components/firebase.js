@@ -23,7 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export const getMaxTemp = async (station='IDCJAC0010',setMaxTemp,startAt,endAt) => {
+export const getMaxTemp = async (station='IDCJAC0010', setMaxTemp, startAt, endAt) => {
   const db = firebase.firestore();
 
   var max_ref = db.collection('temperature').doc('max').collection(station).orderBy("date").startAt(startAt).endAt(endAt);
