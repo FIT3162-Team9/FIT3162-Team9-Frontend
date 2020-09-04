@@ -25,7 +25,7 @@ import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import home from './../pages/home';
 import Bushfire from './../pages/bushfire';
-import Temperature from './../pages/Temperature';
+import Temperature from './../pages/temperature';
 import About from './../pages/about';
 import "./../App.css";
 
@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
+    overflowX: 'hidden',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -95,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
     background: "linear-gradient(  rgb(32,150,160) ,rgb(7,71,67,.6), rgb(7,71,67,.6), rgb(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
     position: 'relative',
     whiteSpace: 'nowrap',
+    overflowX: 'hidden',
     width: drawerWidth ,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,

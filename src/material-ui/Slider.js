@@ -13,7 +13,7 @@ import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 235 + theme.spacing(3) * 2,
+    width: 200 + theme.spacing(3) * 2,
     padding: '20px',
   },
   margin: {
@@ -249,8 +249,8 @@ export default function CustomizedSlider(props) {
 
   return (
     <div className={classes.root}>
-      <div style={{fontSize: '13px'}}>
-          <h1>Weather</h1>
+      <div style={{fontSize: '10px'}}>
+          <h1>Climate</h1>
       </div>
       <Typography  gutterBottom>Relative humidity (%)</Typography>
       <HumiditySlider onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
@@ -261,7 +261,7 @@ export default function CustomizedSlider(props) {
       <WindSlider onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       <div className={classes.margin} />
       <Typography gutterBottom>Drought factor</Typography>
-      <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+      <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={2} />
       {/* <Typography gutterBottom>Tooltip value label</Typography>
       <Slider
         ValueLabelComponent={ValueLabelComponent}

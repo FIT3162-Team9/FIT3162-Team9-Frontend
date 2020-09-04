@@ -16,20 +16,19 @@ import {
   line,
 } from 'd3-shape';
 import { scalePoint } from 'd3-scale';
+import {
+  AreaChart, Area, Line, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts';
+import moment from 'moment';
 
 
 // import { bitcoin as data } from './data/data-visualisation';
 //https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/spline/
 
-const Line = props => (
-  <LineSeries.Path
-    {...props}
-    path={line()
-      .x(({ arg }) => arg)
-      .y(({ val }) => val)
-      .curve(curveCatmullRom)}
-  />
-);
+
+function formatXAxis(tickItem) {
+  return moment.unix(tickItem).format('YYYY-MM-DD')
+}
 
 const titleStyles = {
   title: {
@@ -95,59 +94,16 @@ export default function BushfireChart(props) {
 
   }  
     return (
-      <Paper>
-        <Chart
-          data={chartData}
-        >
-          <ArgumentScale factory={scalePoint} />
-          <ArgumentAxis />
-          <ValueAxis />
-
-          <LineSeries
-            name={"RH: " + props.weather[0] + "%"}
-            valueField="hydr"
-            argumentField="year"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name={"Wind speed: " + props.weather[1] + "km/h"}
-            valueField="usa"
-            argumentField="year"
-            seriesComponent={Line}
-          />
-          
-          <LineSeries
-            name={"Drought factor: " + props.weather[2]}
-            valueField="gas"
-            argumentField="year"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Temperature"
-            valueField="Temperature"
-            argumentField="year"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Bushfire"
-            valueField="Bushfire"
-            argumentField="year"
-            seriesComponent={Line}
-          />
-          {/* <LineSeries
-            name="Nuclear"
-            valueField="nuclear"
-            argumentField="country"
-            seriesComponent={Line}
-          /> */}
-          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title
-            text="Bushfire Risk Analysis\n"
-            textComponent={Text}
-          />
-          <Animation />
-        </Chart>
-      </Paper>
+      <ResponsiveContainer height={400} width="95%">
+        <LineChart data={chartData}>
+          <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
+          <YAxis unit='°C' />
+          <Tooltip/>
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+          <Line type="monotone" dataKey="max" stroke={'#8884d8'} dot={false}/>
+          <Line type="monotone" dataKey="min" stroke={'#82ca9d'} dot={false}/>
+        </LineChart>
+      </ResponsiveContainer>
    
     );
   

@@ -48,3 +48,4 @@ export const getTemperature = async (station='76031', setTempData, startAt, endA
     setTempData(tempData);
   });
 }
+

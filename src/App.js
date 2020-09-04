@@ -1,6 +1,5 @@
 import React ,{Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Navbar from './components/Navbar';
 import Dashboard from './material-ui/Dashboard';
 import './App.css';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -13,7 +12,7 @@ import { ThemeProvider } from '@material-ui/styles';
 //Pages 
 import home from './pages/home';
 import Bushfire from './pages/bushfire';
-import Temperature from './pages/Temperature';
+import Temperature from './pages/temperature';
 
 const theme = createMuiTheme({
   typography: {
