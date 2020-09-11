@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const mainListItems = (
   <div>
-    
       <ListItem button component={Link} to="/" >
         <ListItemIcon>
           <DashboardIcon />

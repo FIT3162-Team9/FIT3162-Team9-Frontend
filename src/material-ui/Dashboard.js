@@ -203,7 +203,7 @@ export default function Dashboard() {
             <Switch>
               <Route exact path ="/">DASHBOARD</Route>
               <Route exact path ="/temperature">VISUALISATION </Route>
-              <Route exact path ="/bushfire">PREDICTION</Route>
+              <Route exact path ="/bushfire">ANALYSIS</Route>
               <Route exact path ="/about">ABOUT</Route>
             </Switch>
           </Typography>

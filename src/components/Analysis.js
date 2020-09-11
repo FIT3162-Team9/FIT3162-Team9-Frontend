@@ -27,6 +27,7 @@ function Analysis(props){
     //     }
     // }
     
+    
     return(
         <Grid xs={12} md={12} lg={12}>
             <Grid

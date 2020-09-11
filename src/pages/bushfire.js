@@ -48,17 +48,16 @@ function Bushfire(props) {
     const validStationIds = ['76031', '76047', '76064']
 
     //Fetch temperature data from firestore
-    useEffect(() => {
-        refreshTemp();
-    }, [])
-
+    
     //Function to fetch temperature data from firestore
     function refreshTemp() {
+      console.log('works');
       let formattedDateRange = dateRange.map(date => moment(date).unix());
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
       const endTimestamp = formattedDateRange[1]
-      getTemperature(stationId, setTempData, startTimestamp, endTimestamp);
+      getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      
       
     }
    
@@ -78,25 +77,16 @@ function Bushfire(props) {
       return ratings
     }
 
-    //HANDLE ONCHANGE SLIDERS
-    function bushfireratings(doc) {
-      let temp = {max:doc['max'], timestamp:doc['timestamp'],bushfirerating:2}
-      console.log(doc)
-      return temp
-    }
-
-  
-
     const updateChart = () => {
-
-     
         let empty = [];
           tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'])}));
           setMaxTemp(empty);
      
       //setWeatherSlider([stateWeather[0],stateWeather[1],stateWeather[2],data]);
     }
-
+    useEffect(() => {
+      refreshTemp();
+  }, [])
 
     //HANDLE SLIDERS
     const handleHumidity= (e,val) => {

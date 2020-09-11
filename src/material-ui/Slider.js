@@ -108,7 +108,7 @@ const IOSSlider = withStyles({
 
 const WindSlider = withStyles({
   root: {
-    color: 'tomato',
+    color: '#52af77',
     height: 8,
   },
   thumb: {
@@ -169,7 +169,7 @@ const HumiditySlider = withStyles({
 
 const DroughtSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#f7500c',
     height: 8,
   },
   thumb: {
