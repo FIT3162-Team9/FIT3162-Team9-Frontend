@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect} from 'react'
+import React, { Component, useState, useEffect, useCallback} from 'react'
 import BushfireChart from '../material-ui/BushfireChart'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import CustomizedSlider from './../material-ui/Slider'
 import { valHooks } from 'jquery'
-import { bushfire as data } from './../material-ui/data/data-visualisation';
+import { temperature as data } from './../material-ui/data/data-visualisation';
 import Analysis from './../components/Analysis';
 import { getTemperature } from './../components/firebase';
 import moment from 'moment';
@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme => ({
       height: 'auto',
       width: '250px',
     },
+    filterHeight:{
+      marginTop: '-30px',
+      height: '50px',
+      width: '918px',
+    },
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
@@ -41,6 +46,9 @@ function Bushfire(props) {
     const classes = useStyles()
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
     const [tempData, setTempData] = useState([]);
+    const [constExtreme, setExtreme, getExtreme] = useState(null);
+    const [constCatastrophic, setCatastrophic] = useState(null);
+    const [maxTemperature, setMaxTemperature] = useState(0);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     const [stationId, setStationId] = React.useState('76031');
     const [maxTemp, setMaxTemp] = useState([]);
@@ -56,7 +64,11 @@ function Bushfire(props) {
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
       const endTimestamp = formattedDateRange[1]
-      getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      setTempData(data);
+      let max = 0;
+      data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
+      setMaxTemperature(max);
+      //getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
       
       
     }
@@ -73,15 +85,33 @@ function Bushfire(props) {
       let temperature = 0.0338 * (temp);
       let windspeed = 0.0234 * (parseInt(stateWeather[1]));
       let exponential = (constant + drought - humidity + temperature + windspeed)
-      let ratings = 2 * Math.exp(exponential)  
+      let ratings = 2 * Math.exp(exponential)
+    
       return ratings
     }
 
+
     const updateChart = () => {
-        let empty = [];
-          tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'])}));
-          setMaxTemp(empty);
      
+        let empty = [];
+          tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:11,high:12,veryhigh:24,severe:24,extreme:constExtreme,catastrophic:constCatastrophic}));
+          //tempData.forEach((doc)=> console.log('{max:' + String(doc['max']) + ', min:' + String(doc['min']) + ', year:"' + String(doc['year']) +  '", timestamp:' + String(doc['timestamp'])+ ', month:' + String(doc['month']) + ', day:' + String(doc['day']) + '},'));
+          //empty.forEach((doc)=> doc.bushfirerating > 99 ? doc.catastrophic = 50 : (doc.bushfirerating > 74 ? doc.extreme = 24 : null));
+          
+          let max = FFDI(maxTemperature);
+          
+       
+          setMaxTemp(empty);
+          if (max > 99) {
+            setCatastrophic( max - 100);
+            setExtreme(24);
+            
+          }
+          else{
+            setCatastrophic(0)
+            max > 74 ? setExtreme(max - 75) : setExtreme(0);
+          }
+
       //setWeatherSlider([stateWeather[0],stateWeather[1],stateWeather[2],data]);
     }
     useEffect(() => {
@@ -121,6 +151,11 @@ function Bushfire(props) {
           <Grid item xs={12} md={4} lg={3}>
             <Paper className={classes.sliderHeight}>
               <CustomizedSlider method={{setHumidity: handleHumidity, setWind:handleWind, setDrought:handleDrought}}/>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={classes.filterHeight}>
+              
             </Paper>
           </Grid>
         </Grid>
