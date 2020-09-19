@@ -25,7 +25,7 @@ import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
 import home from './../pages/home';
 import Bushfire from './../pages/bushfire';
-import Temperature from './../pages/temperature';
+import Temperature from '../pages/temperature';
 import About from './../pages/about';
 import "./../App.css";
 
