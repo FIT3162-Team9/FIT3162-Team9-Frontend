@@ -60,7 +60,7 @@ function Analysis(props){
                 </div>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
-                {(props.method.tempData.length !== 0) ? (<Chart data={props.method.tempData}/>) : (<CircularProgress/>)}
+                {(props.method.tempData.length !== 0) ? (<Chart data={{data:props.method.tempData, state:props.method.state}}/>) : (<CircularProgress/>)}
             </Grid>
         </Grid>
 

@@ -10,6 +10,7 @@ import { valHooks } from 'jquery'
 import { temperature as data } from './../material-ui/data/data-visualisation';
 import Analysis from './../components/Analysis';
 import { getTemperature } from './../components/firebase';
+import BushfireFilter from './../material-ui/BushfireFilter'
 import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +35,8 @@ const useStyles = makeStyles(theme => ({
     filterHeight:{
       marginTop: '-30px',
       height: '50px',
-      width: '918px',
+      width: 'auto',
+
     },
     container: {
       paddingTop: theme.spacing(4),
@@ -46,14 +48,24 @@ function Bushfire(props) {
     const classes = useStyles()
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
     const [tempData, setTempData] = useState([]);
-    const [constExtreme, setExtreme, getExtreme] = useState(null);
+    const [constExtreme, setExtreme] = useState(null);
     const [constCatastrophic, setCatastrophic] = useState(null);
+    const [constLevel, setLevel] = useState([11,12,24,24,null,null])
     const [maxTemperature, setMaxTemperature] = useState(0);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     const [stationId, setStationId] = React.useState('76031');
     const [maxTemp, setMaxTemp] = useState([]);
 
     const validStationIds = ['76031', '76047', '76064']
+
+    const [filterState, setFilterState] = useState([true,true,true]);
+
+    const [state, setState] = React.useState({
+      temperature: true,
+      bushfireratings: true,
+      bushfirezone: true,
+     
+    });
 
     //Fetch temperature data from firestore
     
@@ -70,9 +82,9 @@ function Bushfire(props) {
       setMaxTemperature(max);
       //getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
       
-      
     }
-   
+    
+    
       
     const handleStationIdChange = (event) => {
       setStationId(event.target.value);
@@ -94,7 +106,7 @@ function Bushfire(props) {
     const updateChart = () => {
      
         let empty = [];
-          tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:11,high:12,veryhigh:24,severe:24,extreme:constExtreme,catastrophic:constCatastrophic}));
+          tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           //tempData.forEach((doc)=> console.log('{max:' + String(doc['max']) + ', min:' + String(doc['min']) + ', year:"' + String(doc['year']) +  '", timestamp:' + String(doc['timestamp'])+ ', month:' + String(doc['month']) + ', day:' + String(doc['day']) + '},'));
           //empty.forEach((doc)=> doc.bushfirerating > 99 ? doc.catastrophic = 50 : (doc.bushfirerating > 74 ? doc.extreme = 24 : null));
           
@@ -102,14 +114,23 @@ function Bushfire(props) {
           
        
           setMaxTemp(empty);
+
           if (max > 99) {
-            setCatastrophic( max - 100);
-            setExtreme(24);
+            //setCatastrophic( max - 100);
+            //setExtreme(24);
+            let level = [...constLevel]
+            level[5] = max - 100;
+            level[4] = 24;
+            setLevel(level)
             
           }
           else{
-            setCatastrophic(0)
-            max > 74 ? setExtreme(max - 75) : setExtreme(0);
+            let level = [...constLevel]
+            level[5] = 0;
+            //setLevel(level)
+            //setCatastrophic(0)
+            max > 74 ? level[4] = (max - 75) : level[4] = 0;
+            setLevel(level);
           }
 
       //setWeatherSlider([stateWeather[0],stateWeather[1],stateWeather[2],data]);
@@ -144,7 +165,8 @@ function Bushfire(props) {
                   validStationIds:validStationIds,
                   stationId:stationId,
                   dateRange:dateRange,
-                  tempData:maxTemp}}/>
+                  tempData:maxTemp,
+                  state:state}}/>
                 {/* <BushfireChart weather ={stateWeather} /> */}
             </Paper>
           </Grid>
@@ -153,10 +175,10 @@ function Bushfire(props) {
               <CustomizedSlider method={{setHumidity: handleHumidity, setWind:handleWind, setDrought:handleDrought}}/>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={classes.filterHeight}>
-              
-            </Paper>
+          <Grid item xs={12} md={4} lg={3} className={classes.filterHeight}>
+            
+                <BushfireFilter method={{state:state, setState:setState, constLevel: constLevel}}/>
+
           </Grid>
         </Grid>
       </Container>  

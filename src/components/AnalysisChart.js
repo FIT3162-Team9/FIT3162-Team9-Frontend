@@ -20,21 +20,22 @@ const CustomTooltip = ({ active, payload }) => {
 }
 
 export default ({ data }) => { 
+
   return (
       <ResponsiveContainer height={300} width="95%">
-        <ComposedChart data={data}>
+        <ComposedChart data={data.data}>
           <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
           <YAxis unit='°C' />
           <Tooltip/>{/* <Tooltip content={<CustomTooltip />}/> */}
           <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="low" stackId="1" fill={'#addfad'} stroke={'white'}  dot={false} activeDot={false}/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="high" stackId="1" fill={'#87ceeb'} stroke={'white'} dot={false} activeDot={false}/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="veryhigh" stackId="1" fill={'#fcf75e'} stroke={'white'} dot={false} activeDot={false}/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="severe" stackId="1" fill={'#ffa500'} stroke={'white'} dot={false} activeDot={false}/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="extreme" stackId="1" fill={'#ff4040'} stroke={'white'} dot={false} activeDot={false}/>
-          <Area type="monotone" fillOpacity="0.2" dataKey="catastrophic" stackId="1" fill={'#c80815'} stroke={'white'} dot={false} activeDot={false}/>
-          <Line type="monotone" dataKey="max" stroke={'orange'} dot={false}/>
-          <Line type="monotone" dataKey="bushfirerating" stroke={'red'} dot={false} name="Bushfire rating" onMouseOver={ () => tooltip="pv" }/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "low" : ""} stackId="1" fill={'#addfad'} stroke={'white'}  dot={false} activeDot={false}/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "high" : ""} stackId="1" fill={'#87ceeb'} stroke={'white'} dot={false} activeDot={false}/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "veryhigh" : ""} stackId="1" fill={'#fcf75e'} stroke={'white'} dot={false} activeDot={false}/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "severe" : ""} stackId="1" fill={'#ffa500'} stroke={'white'} dot={false} activeDot={false}/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "extreme" : ""} stackId="1" fill={'#ff4040'} stroke={'white'} dot={false} activeDot={false}/>
+          <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "catastrophic" : ""} stackId="1" fill={'#c80815'} stroke={'white'} dot={false} activeDot={false}/>
+          <Line type="monotone" dataKey={data.state.temperature ? "max" : ""} stroke={'orange'} dot={false}/>
+          <Line type="monotone" dataKey= {data.state.bushfireratings ? "bushfirerating" : ""} stroke={'red'} dot={false} name="Bushfire rating" onMouseOver={ () => tooltip="pv" }/>
           
         </ComposedChart>
       </ResponsiveContainer>
