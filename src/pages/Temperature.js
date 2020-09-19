@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import Visualisation from "../components/Visualisation"
+import TemperatureVisualisation from "../components/Visualisation"
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
@@ -58,7 +58,7 @@ function Temperature(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} md={12} lg={12}>
           <Paper className={autoHeightPaper}>
-            <Visualisation/>
+            <TemperatureVisualisation/>
           </Paper>
         </Grid>
       </Grid>

@@ -17,8 +17,9 @@ import moment from 'moment';
 
 import Title from './Title';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { temperature as data } from './../material-ui/data/data-visualisation';
 
-function Visualisation(){
+function TemperatureVisualisation(){
     const [tempData, setTempData] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     const [stationId, setStationId] = React.useState('76031');
@@ -34,7 +35,8 @@ function Visualisation(){
         console.log('dateRange', formattedDateRange);
         const startTimestamp = formattedDateRange[0];
         const endTimestamp = formattedDateRange[1]
-        getTemperature(stationId, setTempData, startTimestamp, endTimestamp);
+        // getTemperature(stationId, setTempData, startTimestamp, endTimestamp);
+        setTempData(data)
     }
 
     const handleStationIdChange = (event) => {
@@ -82,4 +84,4 @@ function Visualisation(){
     )
 }
 
-export default Visualisation
+export default TemperatureVisualisation
