@@ -63,47 +63,6 @@ function Temperature(props) {
         </Grid>
       </Grid>
     </Container>
-            // <div>
-            //     <Grid item xs={12} >
-            //       <Paper className={autoHeightPaper}>
-            //         {/* Requires attention: Redundancy */}
-            //         <div key={startDate}>
-            //           <div key={endDate}>
-            //             <Visualisation startDate={startDate} endDate={endDate}/>
-            //           </div>
-            //         </div>   
-            //       </Paper>   
-            //       <form onSubmit={handleSubmit}>
-            //         <div className="form-group">
-            //           <label>Start date: </label>
-            //           <DatePicker 
-            //             selected={temporaryStartDate} 
-            //             onChange={handleChange}
-            //             minDate={new Date(2000,1,1)}
-            //             maxDate={new Date()}
-            //             showYearDropdown
-            //             scrollableYearDropdown
-            //             isClearable
-            //             /> 
-            //         </div>
-            //         <div>
-            //           <label>End date : </label>
-            //           <DatePicker 
-            //             selected={temporaryEndDate} 
-            //             onChange={handleChangeE}
-            //             minDate={new Date(2000,1,1)}
-            //             maxDate={new Date()}
-            //             showYearDropdown
-            //             scrollableYearDropdown
-            //             isClearable
-            //             /> 
-            //         </div>
-            //         <div>
-            //           <input type="submit" />
-            //         </div>
-            //       </form>
-            //     </Grid>
-            // </div>
         )
 }
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import Chart from './Chart.js';
+import Chart from './TemperatureChart';
 import { getTemperature } from './firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
@@ -17,7 +17,7 @@ import moment from 'moment';
 
 import Title from './Title';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { temperature as data } from './../material-ui/data/data-visualisation';
+import { temperature as data } from './data/tempdata';
 
 function TemperatureVisualisation(){
     const [tempData, setTempData] = useState([]);

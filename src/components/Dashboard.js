@@ -3,48 +3,23 @@ import clsx from 'clsx';
 import { makeStyles, formatMs } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Items from './listItems';
-import Chart from './Chart';
+import Items from './NavbarItem';
 import './../fonts/Quicksand-Regular.ttf';
-import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
-import home from './../pages/home';
-import Bushfire from './../pages/bushfire';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import home from '../pages/Home';
+import Bushfire from '../pages/Bushfire';
 import Temperature from '../pages/Temperature';
-import About from './../pages/about';
+import About from '../pages/About';
 import "./../App.css";
 
 
 //Base Template from Material-UI
 //https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 220;
 
@@ -163,14 +138,6 @@ export default function Dashboard() {
   const handleSelectedPage = () => {
     console.log("works");
    };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <Router>
@@ -181,18 +148,6 @@ export default function Dashboard() {
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
-          {/* <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden,
-            )}
-          >
-            <MenuIcon />
-          </IconButton> */}
           <Typography
             component="h1"
             variant="h5"
@@ -224,13 +179,7 @@ export default function Dashboard() {
             >
               S P △ R K
             </Typography>
-          {/* <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div> */}
           <List className={classes.mainItems}> <Items action={handleSelectedPage} /> </List>
-          {/* <List>{secondaryListItems}</List> */}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -240,31 +189,6 @@ export default function Dashboard() {
               <Route exact path ="/temperature" component={Temperature}/>
               <Route exact path ="/about" component={About}/>
             </Switch>
-          {/* <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              Chart 
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <Chart />
-                </Paper>
-              </Grid>
-              Recent Deposits
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>
-                  <Deposits />
-                </Paper>
-              </Grid>
-              Recent Orders 
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <Orders />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
-          </Container> */}
         </main>
     </div>
     </Router>

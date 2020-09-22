@@ -252,29 +252,15 @@ export default function CustomizedSlider(props) {
       <div style={{fontSize: '10px'}}>
           <h1>Climate</h1>
       </div>
-      <Typography  gutterBottom>Relative humidity (%)</Typography>
-      <HumiditySlider onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
-      {/* <Typography gutterBottom>iOS</Typography>
-      <IOSSlider aria-label="ios slider" defaultValue={60} marks={marks} valueLabelDisplay="on" /> */}
+        <Typography  gutterBottom>Relative humidity (%)</Typography>
+        <HumiditySlider onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       <div className={classes.margin} />
-      <Typography  gutterBottom>Wind speed (km/h)</Typography>
-      <WindSlider onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+        <Typography  gutterBottom>Wind speed (km/h)</Typography>
+        <WindSlider onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
       <div className={classes.margin} />
-      <Typography gutterBottom>Drought factor</Typography>
-      <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={2} />
-      {/* <Typography gutterBottom>Tooltip value label</Typography>
-      <Slider
-        ValueLabelComponent={ValueLabelComponent}
-        aria-label="custom thumb label"
-        defaultValue={20}
-      /> */}
+        <Typography gutterBottom>Drought factor</Typography>
+        <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={2} />
       <div className={classes.margin} />
-      {/* <Typography gutterBottom>Airbnb</Typography>
-      <AirbnbSlider
-        ThumbComponent={AirbnbThumbComponent}
-        getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
-        defaultValue={[20, 40]}
-      /> */}
     </div>
   );
 }

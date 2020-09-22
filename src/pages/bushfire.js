@@ -1,16 +1,13 @@
 import React, { Component, useState, useEffect, useCallback} from 'react'
-import BushfireChart from '../material-ui/BushfireChart'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import CustomizedSlider from './../material-ui/Slider'
-import { valHooks } from 'jquery'
-import { temperature as data } from './../material-ui/data/data-visualisation';
-import Analysis from './../components/Analysis';
-import { getTemperature } from './../components/firebase';
-import BushfireFilter from './../material-ui/BushfireFilter'
+import CustomizedSlider from '../components/Slider'
+import { temperature as data } from '../components/data/tempdata';
+import Analysis from '../components/Analysis';
+import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
