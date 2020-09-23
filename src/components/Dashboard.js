@@ -16,10 +16,13 @@ import Temperature from '../pages/Temperature';
 import About from '../pages/About';
 import "./../App.css";
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
-//Base Template from Material-UI
-//https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates
-
+import { getStates, getLGAs, getStations } from "./firebase";
 
 const drawerWidth = 220;
 
@@ -134,10 +137,21 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [states, setStates] = React.useState([]);
+  const [LGAs, setLGAs] = React.useState([]);
+  const [state, setState] = React.useState();
+  const [LGA, setLGA] = React.useState();
+  const [stations, setStations]  = React.useState();
+  const [station, setStation] = React.useState('76031');
   
   const handleSelectedPage = () => {
     console.log("works");
    };
+
+   React.useEffect(() => {
+    const states = getStates();
+    console.log('states', setStates(states));
+   }, [])
 
   return (
     <Router>
@@ -179,14 +193,80 @@ export default function Dashboard() {
             >
               S P △ R K
             </Typography>
+            <Typography style={{marginTop: 20, color: 'white'}} component="h2" color="white" variant="h6">Station ID: {station}</Typography>
+            <div style={{marginTop: 10}}>
+              {states !== [] && 
+              <FormControl>
+                <InputLabel id="state-label">State</InputLabel>
+                <Select
+                  labelId="state-label"
+                  id="state-select"
+                  value={states[0]}
+                  onChange={(val)=>{console.log(val.target.value); setState(val.target.value); getLGAs(val.target.value, setLGAs);}}
+                  style={{width: 160}}
+                >
+                  {states.map((val, index) => <MenuItem key={index} value={val}>{val.toUpperCase()}</MenuItem>)}
+                </Select>
+              </FormControl>
+              }
+            </div>
+            <div style={{marginTop: 10}}>
+              {(LGAs !== [] && state) &&
+              <FormControl>
+                <InputLabel id="lga-label">LGAs</InputLabel>
+                <Select
+                  labelId="lga-label"
+                  id="lga-select"
+                  value={LGAs[0]}
+                  onChange={(val)=>{
+                    console.log(val.target.value);
+                    getStations(state, val.target.value, 
+                      (stationVal) => {
+                        setStation(stationVal[0]);
+                        setStations(stationVal);
+                      });
+                  }}
+                  style={{width: 160}}
+                >
+                  {LGAs.map((val, index) => <MenuItem key={index} value={val}>{val.split("_").join(" ").toUpperCase()}</MenuItem>)}
+                </Select>
+              </FormControl>
+              }
+            </div>
+            <div style={{marginTop: 10}}>
+              {(LGAs !== [] && state && station && stations) &&
+              <FormControl>
+                <InputLabel id="stations-label">Stations</InputLabel>
+                <Select
+                  labelId="stations-label"
+                  id="stations-select"
+                  value={station}
+                  onChange={(val)=>{
+                    console.log(val.target.value);
+                    setStation(val.target.value);
+                  }}
+                  style={{width: 160}}
+                >
+                  {stations.map((val, index) => <MenuItem key={index} value={val}>{val}</MenuItem>)}
+                </Select>
+              </FormControl>
+              }
+            </div>
+            {/* <Button 
+              onClick={console.log}
+              variant="contained"
+              disabled={!station}
+              style={{marginTop: 20, width: 160, alignSelf: 'center'}}
+            >Set Station</Button> */}
+            
           <List className={classes.mainItems}> <Items action={handleSelectedPage} /> </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
             <Switch>
               <Route exact path ="/" component={home}/>
-              <Route exact path ="/bushfire" component={Bushfire}/>
-              <Route exact path ="/temperature" component={Temperature}/>
+              <Route exact path ="/bushfire" render={() => <Bushfire station={station}/>}/>
+              <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
               <Route exact path ="/about" component={About}/>
             </Switch>
         </main>

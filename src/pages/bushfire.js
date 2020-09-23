@@ -50,8 +50,10 @@ function Bushfire(props) {
     const [constLevel, setLevel] = useState([11,12,24,24,null,null])
     const [maxTemperature, setMaxTemperature] = useState(0);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
-    const [stationId, setStationId] = React.useState('76031');
+    // const [stationId, setStationId] = React.useState('76031');
     const [maxTemp, setMaxTemp] = useState([]);
+
+    const stationId = props.station;
 
     const validStationIds = ['76031', '76047', '76064']
 
@@ -61,8 +63,11 @@ function Bushfire(props) {
       temperature: true,
       bushfireratings: true,
       bushfirezone: true,
-     
     });
+
+    useEffect(() => {
+      console.log('BUSHFIRE PROPS ---- ', props.station);
+    }, [])
 
     //Fetch temperature data from firestore
     
@@ -80,12 +85,10 @@ function Bushfire(props) {
       //getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
       
     }
-    
-    
       
-    const handleStationIdChange = (event) => {
-      setStationId(event.target.value);
-    };
+    // const handleStationIdChange = (event) => {
+    //   setStationId(event.target.value);
+    // };
 
     const FFDI = (temp) =>{
       let constant = -0.45;
@@ -156,10 +159,9 @@ function Bushfire(props) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8} lg={9}>
             <Paper className={autoHeightPaper}>
-                <Analysis method={{handleStationIdChange:handleStationIdChange, 
+                <Analysis method={{
                   setDateRange:setDateRange, 
                   refreshTemp:refreshTemp,
-                  validStationIds:validStationIds,
                   stationId:stationId,
                   dateRange:dateRange,
                   tempData:maxTemp,

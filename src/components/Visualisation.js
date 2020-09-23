@@ -19,10 +19,11 @@ import Title from './Title';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { temperature as data } from './data/tempdata';
 
-function TemperatureVisualisation(){
+function TemperatureVisualisation(props){
     const [tempData, setTempData] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
-    const [stationId, setStationId] = React.useState('76031');
+    // const [stationId, setStationId] = React.useState('76031');
+    const stationId = props.station;
 
     const validStationIds = ['76031', '76047', '76064']
     
@@ -39,9 +40,9 @@ function TemperatureVisualisation(){
         setTempData(data)
     }
 
-    const handleStationIdChange = (event) => {
-        setStationId(event.target.value);
-    };
+    // const handleStationIdChange = (event) => {
+    //     setStationId(event.target.value);
+    // };
 
     return(
         <Grid xs={12} md={12} lg={12}>
@@ -55,7 +56,7 @@ function TemperatureVisualisation(){
             >
                 <Typography>Temperature</Typography>
                 <div style={{justifyContent: 'center'}}>
-                   
+{/*                    
 
                     <FormControl size="small" style={{paddingRight: 10, paddingLeft: 10 }}>
                         <Select
@@ -66,7 +67,7 @@ function TemperatureVisualisation(){
                         >
                             {validStationIds.map(id => <MenuItem value={id}>{id}</MenuItem>)}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <DateRangePicker
                         onChange={setDateRange}
                         value={dateRange}

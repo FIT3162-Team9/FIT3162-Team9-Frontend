@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect} from 'react'
 import TemperatureVisualisation from "../components/Visualisation"
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -32,6 +32,10 @@ function Temperature(props) {
   const [endDate, setEndDate] = useState("2020");
   const [temporaryStartDate, setTemporaryStartDate] = useState(null);
   const [temporaryEndDate, setTemporaryEndDate] = useState(null);
+
+  useEffect(() => {
+    console.log('TEMPERATURE PROPS ---- ', props.station);
+  }, [props])
 
   //Requires attention: Year of start date should be earlier than year of end date.  
   const handleSubmit = (e) =>{

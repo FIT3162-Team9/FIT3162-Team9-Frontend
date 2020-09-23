@@ -40,7 +40,7 @@ function Analysis(props){
             >
                 <Typography>Bushfire Analysis</Typography>
                 <div style={{justifyContent: 'center'}}>
-                    <FormControl size="small" style={{paddingRight: 10, paddingLeft: 10 }}>
+                    {/* <FormControl size="small" style={{paddingRight: 10, paddingLeft: 10 }}>
                         <Select
                             labelId="station-id-label"
                             id="station-id"
@@ -49,7 +49,7 @@ function Analysis(props){
                         >
                             {props.method.validStationIds.map(id => <MenuItem value={id}>{id}</MenuItem>)}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                     <DateRangePicker
                         onChange={props.method.setDateRange}
                         value={props.method.dateRange}
