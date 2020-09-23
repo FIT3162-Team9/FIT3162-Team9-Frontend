@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,useEffect} from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -54,6 +54,12 @@ function Items(props) {
     setStateBushfire(false);
     setStateAbout(false);
   }
+  useEffect(() => {
+    window.location.pathname == '/' ? setStateDashboard(true) : setStateDashboard(false);
+    window.location.pathname == '/temperature' ? setStateTemperature(true) : setStateTemperature(false);
+    window.location.pathname == '/bushfire' ? setStateBushfire(true) : setStateBushfire(false);
+    window.location.pathname == '/about' ? setStateAbout(true) : setStateAbout(false); 
+  }, [])
 
   const handleSelectedPage = (id) => {
     if (id === "Dashboard" && !stateDashboard){
