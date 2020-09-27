@@ -36,7 +36,7 @@ firebase.initializeApp(firebaseConfig);
 //   });
 // }
 
-export const getTemperature = async (station='76031', setTempData, startAt, endAt) => {
+export const getTemperature = async (station='', setTempData, startAt, endAt) => {
   const db = firebase.firestore();
 
   var tempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
@@ -49,7 +49,7 @@ export const getTemperature = async (station='76031', setTempData, startAt, endA
   });
 }
 
-export const getForecastedTemperature= async (station='76031', setTempData, startAt, endAt) => {
+export const getForecastedTemperature= async (station='', setTempData, startAt, endAt) => {
   const db = firebase.firestore();
   var tempStationRef = db.collection('forecast').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
   
@@ -59,22 +59,6 @@ export const getForecastedTemperature= async (station='76031', setTempData, star
     console.log('Fetched all data', tempData);
     setTempData(tempData);
   });
-}
-
-
-const getPastData = async (station='76031', stempData, startAt, endAt) => {
-  const db = firebase.firestore();
-  var pasttempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
-  
-  let tempData = []
-  pasttempStationRef.get().then(querySnapshot => {
-    querySnapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
-    console.log('Fetched all past data', tempData);
-  });
-  console.log('works',tempData) 
-  return tempData 
-    //setTempData(tempData);
-
 }
 
 

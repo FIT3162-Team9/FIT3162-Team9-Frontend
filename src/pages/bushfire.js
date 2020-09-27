@@ -62,7 +62,7 @@ function Bushfire(props) {
     const [state, setState] = React.useState({
       temperature: true,
       bushfireratings: true,
-      bushfirezone: true,
+      bushfirezone: false,
     });
 
     useEffect(() => {
