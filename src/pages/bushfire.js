@@ -9,6 +9,7 @@ import { temperature as data } from '../components/data/tempdata';
 import Analysis from '../components/Analysis';
 import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
+import {getTemperature,getForecastedTemperature} from './../components/firebase'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,8 +46,7 @@ function Bushfire(props) {
     const classes = useStyles()
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
     const [tempData, setTempData] = useState([]);
-    const [constExtreme, setExtreme] = useState(null);
-    const [constCatastrophic, setCatastrophic] = useState(null);
+    const [pastTempData, setPastTempData] = useState([]);
     const [constLevel, setLevel] = useState([11,12,24,24,null,null])
     const [maxTemperature, setMaxTemperature] = useState(0);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
@@ -73,16 +73,17 @@ function Bushfire(props) {
     
     //Function to fetch temperature data from firestore
     function refreshTemp() {
-      console.log('works');
       let formattedDateRange = dateRange.map(date => moment(date).unix());
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
       const endTimestamp = formattedDateRange[1]
+    
       setTempData(data);
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
       setMaxTemperature(max);
-      //getTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      getForecastedTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      getTemperature(stationId, setPastTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
       
     }
       
@@ -106,7 +107,10 @@ function Bushfire(props) {
     const updateChart = () => {
      
         let empty = [];
+          
+          pastTempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+          
           //tempData.forEach((doc)=> console.log('{max:' + String(doc['max']) + ', min:' + String(doc['min']) + ', year:"' + String(doc['year']) +  '", timestamp:' + String(doc['timestamp'])+ ', month:' + String(doc['month']) + ', day:' + String(doc['day']) + '},'));
           //empty.forEach((doc)=> doc.bushfirerating > 99 ? doc.catastrophic = 50 : (doc.bushfirerating > 74 ? doc.extreme = 24 : null));
           
