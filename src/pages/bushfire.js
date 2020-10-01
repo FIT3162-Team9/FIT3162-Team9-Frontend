@@ -10,6 +10,7 @@ import Analysis from '../components/Analysis';
 import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
 import {getTemperature,getForecastedTemperature} from './../components/firebase'
+import Popup from './../components/Popup';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -53,10 +54,10 @@ function Bushfire(props) {
     // const [stationId, setStationId] = React.useState('76031');
     const [maxTemp, setMaxTemp] = useState([]);
 
-    const stationId = props.station;
+    const stationId = props.station.station;
 
     const validStationIds = ['76031', '76047', '76064']
-
+    
     const [filterState, setFilterState] = useState([true,true,true]);
 
     const [state, setState] = React.useState({
@@ -65,19 +66,41 @@ function Bushfire(props) {
       bushfirezone: false,
     });
 
+
+    //Popup Notification
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    //White listed LGAs
+
+    const validLGA = ['mildura_shire','wellington','horsham','greater_bendigo','glenelg','banyule','ballarat_north','brimbank',undefined]
+
     useEffect(() => {
-      console.log('BUSHFIRE PROPS ---- ', props.station);
+      console.log('BUSHFIRE PROPS ---- ', props.station.station);
     }, [])
 
     //Fetch temperature data from firestore
     
     //Function to fetch temperature data from firestore
     function refreshTemp() {
+      
+      if (!validLGA.includes(props.station.LGA)){
+        handleClickOpen()
+        return
+      }
+
       let formattedDateRange = dateRange.map(date => moment(date).unix());
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
       const endTimestamp = formattedDateRange[1]
-    
+      console.log(endTimestamp);
       setTempData(data);
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
@@ -182,6 +205,11 @@ function Bushfire(props) {
             
                 <BushfireFilter method={{state:state, setState:setState, constLevel: constLevel}}/>
 
+          </Grid>
+          <Grid item xs={12} md={4} lg={3} className={classes.filterHeight}>
+            
+                <Popup props={{open:open, handleClickOpen:handleClickOpen, handleClose:handleClose}}/>
+                
           </Grid>
         </Grid>
       </Container>  

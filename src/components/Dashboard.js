@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component, useState, useEffect, useCallback} from 'react'
 import clsx from 'clsx';
 import { makeStyles, formatMs } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -144,6 +144,11 @@ export default function Dashboard() {
   const [stations, setStations]  = React.useState();
   const [station, setStation] = React.useState('76031');
   
+  
+  useEffect(() => {
+    console.log(LGA);
+  }, [LGA]);
+
   const handleSelectedPage = () => {
     console.log("works");
    };
@@ -220,6 +225,7 @@ export default function Dashboard() {
                   value={LGAs[0]}
                   onChange={(val)=>{
                     console.log(val.target.value);
+                    setLGA(val.target.value);
                     getStations(state, val.target.value, 
                       (stationVal) => {
                         setStation(stationVal[0]);
@@ -265,7 +271,7 @@ export default function Dashboard() {
           <div className={classes.appBarSpacer} />
             <Switch>
               <Route exact path ="/" component={home}/>
-              <Route exact path ="/bushfire" render={() => <Bushfire station={station}/>}/>
+              <Route exact path ="/bushfire" render={() => <Bushfire station={{station:station, LGA:LGA}}/>}/>
               <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
               <Route exact path ="/about" component={About}/>
             </Switch>
