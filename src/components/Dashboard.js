@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Items from './NavbarItem';
 import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import home from '../pages/Home';
+import Home from '../pages/Home';
 import Bushfire from '../pages/Bushfire';
 import Temperature from '../pages/Temperature';
 import About from '../pages/About';
@@ -146,7 +146,6 @@ export default function Dashboard() {
   
   
   useEffect(() => {
-    console.log(LGA);
   }, [LGA]);
 
   const handleSelectedPage = () => {
@@ -270,7 +269,7 @@ export default function Dashboard() {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
             <Switch>
-              <Route exact path ="/" component={home}/>
+              <Route exact path ="/" render={() => <Home station={{station:station, LGA:LGA}}/>}/>
               <Route exact path ="/bushfire" render={() => <Bushfire station={{station:station, LGA:LGA}}/>}/>
               <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
               <Route exact path ="/about" component={About}/>

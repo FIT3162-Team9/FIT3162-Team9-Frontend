@@ -62,6 +62,19 @@ export const getForecastedTemperature= async (station='', setTempData, startAt, 
 }
 
 
+export const getHumidityWind= async (LGA='', setHumidityWind, startAt, endAt) => {
+  if (LGA == "") {return}
+  const db = firebase.firestore();
+  var tempStationRef = db.collection('data').doc('humidity_wind').collection(LGA).orderBy("timestamp").startAt(startAt).endAt(endAt);
+  console.log('Humidity/Wind')
+  return tempStationRef.onSnapshot((snapshot) => {
+    let humidityWindData = [];
+    snapshot.forEach((doc) => humidityWindData.push({ ...doc.data(), id: doc.id }));
+    console.log('Fetched all humidity data', humidityWindData);
+    setHumidityWind(humidityWindData);
+  });
+}
+
 export const getStates = () => {
   // Hardcoded states
   return ['nsw', 'nt', 'qld', 'sa', 'tas', 'vic', 'wa'];

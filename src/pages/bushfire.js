@@ -9,7 +9,7 @@ import { temperature as data } from '../components/data/tempdata';
 import Analysis from '../components/Analysis';
 import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
-import {getTemperature,getForecastedTemperature} from './../components/firebase'
+import {getTemperature,getForecastedTemperature,getHumidityWind} from './../components/firebase'
 import Popup from './../components/Popup';
 
 const useStyles = makeStyles(theme => ({
@@ -48,17 +48,14 @@ function Bushfire(props) {
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
     const [tempData, setTempData] = useState([]);
     const [pastTempData, setPastTempData] = useState([]);
+    const [humidityWindData, setHumidityWind] = useState([]);
     const [constLevel, setLevel] = useState([11,12,24,24,null,null])
     const [maxTemperature, setMaxTemperature] = useState(0);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
-    // const [stationId, setStationId] = React.useState('76031');
+  
     const [maxTemp, setMaxTemp] = useState([]);
 
     const stationId = props.station.station;
-
-    const validStationIds = ['76031', '76047', '76064']
-    
-    const [filterState, setFilterState] = useState([true,true,true]);
 
     const [state, setState] = React.useState({
       temperature: true,
@@ -66,7 +63,7 @@ function Bushfire(props) {
       bushfirezone: false,
     });
 
-
+    
     //Popup Notification
     const [open, setOpen] = React.useState(false);
 
@@ -84,9 +81,13 @@ function Bushfire(props) {
 
     useEffect(() => {
       console.log('BUSHFIRE PROPS ---- ', props.station.station);
-    }, [])
+    }, [humidityWindData])
 
-    //Fetch temperature data from firestore
+    //Add humidity & wind to datasets
+
+    function addHumidityWind(){
+
+    }
     
     //Function to fetch temperature data from firestore
     function refreshTemp() {
@@ -105,15 +106,14 @@ function Bushfire(props) {
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
       setMaxTemperature(max);
-      getForecastedTemperature(stationId, setTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      getHumidityWind(props.station.LGA, setHumidityWind,startTimestamp,endTimestamp)
+      getForecastedTemperature(stationId, setTempData, startTimestamp, endTimestamp)
       getTemperature(stationId, setPastTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
       
+      
+
     }
       
-    // const handleStationIdChange = (event) => {
-    //   setStationId(event.target.value);
-    // };
-
     const FFDI = (temp) =>{
       let constant = -0.45;
       let drought = 0.987 * Math.log(parseInt(stateWeather[2]));
@@ -126,41 +126,31 @@ function Bushfire(props) {
       return ratings
     }
 
-
     const updateChart = () => {
-     
         let empty = [];
+
+          var dict = new Map();
+          humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
+          pastTempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null   ,windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+          tempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null       ,windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
-          pastTempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
-          tempData.forEach((doc) => empty.push({max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
-          
-          //tempData.forEach((doc)=> console.log('{max:' + String(doc['max']) + ', min:' + String(doc['min']) + ', year:"' + String(doc['year']) +  '", timestamp:' + String(doc['timestamp'])+ ', month:' + String(doc['month']) + ', day:' + String(doc['day']) + '},'));
-          //empty.forEach((doc)=> doc.bushfirerating > 99 ? doc.catastrophic = 50 : (doc.bushfirerating > 74 ? doc.extreme = 24 : null));
-          
+        
           let max = FFDI(maxTemperature);
-          
-       
           setMaxTemp(empty);
 
-          if (max > 99) {
-            //setCatastrophic( max - 100);
-            //setExtreme(24);
+          if (max > 99) {         
             let level = [...constLevel]
             level[5] = max - 100;
             level[4] = 24;
             setLevel(level)
-            
           }
           else{
             let level = [...constLevel]
             level[5] = 0;
-            //setLevel(level)
-            //setCatastrophic(0)
             max > 74 ? level[4] = (max - 75) : level[4] = 0;
             setLevel(level);
           }
 
-      //setWeatherSlider([stateWeather[0],stateWeather[1],stateWeather[2],data]);
     }
     useEffect(() => {
       refreshTemp();
