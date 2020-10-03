@@ -66,6 +66,38 @@ export default function BushfireFilter(props) {
     <FormControlLabel
         control={
         <Checkbox
+            icon={<HorizontalSplitRoundedIcon />}
+            checkedIcon={<HorizontalSplitRoundedIcon />}
+            name="humidity"
+            onChange = {handleChange}
+            style ={{
+                color: props.method.state.humidity   ? "blue" : "grey"
+
+            }}
+        className={classes.filter}
+        />
+        }
+        label="Humidity"
+    />
+    <FormControlLabel
+        control={
+        <Checkbox
+            icon={<HorizontalSplitRoundedIcon />}
+            checkedIcon={<HorizontalSplitRoundedIcon />}
+            name="windspeed"
+            onChange = {handleChange}
+            style ={{
+                color: props.method.state.windspeed   ? "green" : "grey"
+
+            }}
+        className={classes.filter}
+        />
+        }
+        label="Windspeed"
+    />
+    <FormControlLabel
+        control={
+        <Checkbox
             icon={<WhatshotSharpIcon />}
             checkedIcon={<WhatshotSharpIcon />}
             name="bushfireratings"

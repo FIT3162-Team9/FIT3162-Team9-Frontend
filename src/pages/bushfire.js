@@ -9,8 +9,8 @@ import { temperature as data } from '../components/data/tempdata';
 import Analysis from '../components/Analysis';
 import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
-import {getTemperature,getForecastedTemperature,getHumidityWind} from './../components/firebase'
-import Popup from './../components/Popup';
+import {getTemperature,getForecastedTemperature,getHumidityWind} from '../components/firebase'
+import Popup from '../components/Popup';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,6 +61,8 @@ function Bushfire(props) {
       temperature: true,
       bushfireratings: true,
       bushfirezone: false,
+      humidity: true,
+      windspeed: true,
     });
 
     
@@ -114,16 +116,25 @@ function Bushfire(props) {
 
     }
       
-    const FFDI = (temp) =>{
+    const FFDI = (temp, climate) =>{
       let constant = -0.45;
       let drought = 0.987 * Math.log(parseInt(stateWeather[2]));
-      let humidity = 0.0345 * (parseInt(stateWeather[0]));
+      let humidity = climate ? 0.0345 * climate['humidity'] : 0.0345 * (parseInt(stateWeather[0]));
       let temperature = 0.0338 * (temp);
-      let windspeed = 0.0234 * (parseInt(stateWeather[1]));
+      let windspeed = climate ? 0.0234 * climate['windspeed'] : 0.0234 * (parseInt(stateWeather[1]));
       let exponential = (constant + drought - humidity + temperature + windspeed)
       let ratings = 2 * Math.exp(exponential)
-    
-      return ratings
+      
+      
+      if (ratings<1){
+        return 1
+      }
+      else if (ratings>150) {
+        return 150
+      }
+      else{
+        return ratings
+      }
     }
 
     const updateChart = () => {
@@ -131,8 +142,12 @@ function Bushfire(props) {
 
           var dict = new Map();
           humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
-          pastTempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null   ,windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
-          tempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null       ,windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max']),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+          pastTempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
+                                                    windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                                    max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+          tempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
+                                                windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                                max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
         
           let max = FFDI(maxTemperature);

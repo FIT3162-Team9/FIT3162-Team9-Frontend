@@ -35,8 +35,8 @@ export default ({ data }) => {
           <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "extreme" : ""} stackId="1" fill={'#ff4040'} stroke={'white'} dot={false} activeDot={false}/>
           <Area type="monotone" fillOpacity="0.2" dataKey={data.state.bushfirezone ? "catastrophic" : ""} stackId="1" fill={'#c80815'} stroke={'white'} dot={false} activeDot={false}/>
           <Line type="monotone" dataKey={data.state.temperature ? "max" : ""} stroke={'orange'} dot={false}/>
-          <Line type="monotone" dataKey={"humidity"} stroke={'blue'} dot={false}/>
-          <Line type="monotone" dataKey={"windspeed"} stroke={'green'} dot={false}/>
+          <Line type="monotone" dataKey={data.state.humidity ? "humidity" : ""} stroke={'blue'} dot={false}/>
+          <Line type="monotone" dataKey={data.state.windspeed ? "windspeed" : ""} stroke={'green'} dot={false}/>
           <Line type="monotone" dataKey= {data.state.bushfireratings ? "bushfirerating" : ""} stroke={'red'} dot={false} name="Bushfire rating" onMouseOver={ () => tooltip="pv" }/>
           
         </ComposedChart>
