@@ -43,6 +43,15 @@ const useStyles = makeStyles(theme => ({
     },
   }))
 
+const MILDURA_SHIRE = 'mildura_shire';
+const WELLINGTON = 'wellington';
+const HORSHAM = 'horsham';
+const GREATER_BENDIGO = 'greater_bendigo';
+const GLENELG = 'glenelg';
+const BANYULE = 'banyule';
+const BALLARAT_NORTH = 'ballarat_north';
+const BRIMBANK = 'brimbank';
+
 function Bushfire(props) {
     const classes = useStyles()
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
@@ -79,7 +88,7 @@ function Bushfire(props) {
 
     //White listed LGAs
 
-    const validLGA = ['mildura_shire','wellington','horsham','greater_bendigo','glenelg','banyule','ballarat_north','brimbank',undefined]
+    const validLGA = [MILDURA_SHIRE, WELLINGTON, HORSHAM, GREATER_BENDIGO, GLENELG, BANYULE, BALLARAT_NORTH, BRIMBANK, undefined]
 
     useEffect(() => {
       console.log('BUSHFIRE PROPS ---- ', props.station.station);
@@ -93,27 +102,39 @@ function Bushfire(props) {
     
     //Function to fetch temperature data from firestore
     function refreshTemp() {
-      
-      if (!validLGA.includes(props.station.LGA)){
-        handleClickOpen()
-        return
-      }
 
       let formattedDateRange = dateRange.map(date => moment(date).unix());
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
       const endTimestamp = formattedDateRange[1]
+      console.log('startTimestamp', startTimestamp)
+
+      if (!validLGA.includes(props.station.LGA)){
+        handleClickOpen()
+        return
+      } else {
+        let minYear = 2009;
+
+        if (props.station.LGA === HORSHAM){
+          minYear = 2013;
+        }
+        
+        const checkStartTimestamp = moment({ year: minYear, month: 1, day: 1}).unix();
+
+        if (checkStartTimestamp > startTimestamp){
+          handleClickOpen();
+          return
+        }
+      }
+
       console.log(endTimestamp);
       setTempData(data);
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
       setMaxTemperature(max);
-      getHumidityWind(props.station.LGA, setHumidityWind,startTimestamp,endTimestamp)
+      getHumidityWind(props.station.LGA, setHumidityWind, startTimestamp, endTimestamp)
       getForecastedTemperature(stationId, setTempData, startTimestamp, endTimestamp)
       getTemperature(stationId, setPastTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
-      
-      
-
     }
       
     const FFDI = (temp, climate) =>{

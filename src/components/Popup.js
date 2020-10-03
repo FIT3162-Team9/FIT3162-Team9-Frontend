@@ -38,6 +38,7 @@ export default function Popup(props) {
               <li>Banyule</li>
               <li>Brimbank</li>
             </ul>
+            The time ranges also start at 1st January 2009, except for Horsham which starts at 1st January 2013.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
