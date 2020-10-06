@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnalysisChart renders correctly 1`] = `
+<ResponsiveContainer
+  debounce={0}
+  height={300}
+  width="95%"
+>
+  <ComposedChart
+    barCategoryGap="10%"
+    barGap={4}
+    layout="horizontal"
+    margin={
+      Object {
+        "bottom": 5,
+        "left": 5,
+        "right": 5,
+        "top": 5,
+      }
+    }
+    reverseStackOrder={false}
+    stackOffset="none"
+  >
+    <XAxis
+      allowDataOverflow={false}
+      allowDecimals={true}
+      allowDuplicatedCategory={true}
+      dataKey="timestamp"
+      domain={
+        Array [
+          0,
+          "auto",
+        ]
+      }
+      height={30}
+      hide={false}
+      mirror={false}
+      orientation="bottom"
+      padding={
+        Object {
+          "left": 0,
+          "right": 0,
+        }
+      }
+      reversed={false}
+      scale="auto"
+      tickCount={5}
+      tickFormatter={[Function]}
+      type="category"
+      width={0}
+      xAxisId={0}
+    />
+    <YAxis
+      allowDataOverflow={false}
+      allowDecimals={true}
+      allowDuplicatedCategory={true}
+      domain={
+        Array [
+          0,
+          "auto",
+        ]
+      }
+      height={0}
+      hide={false}
+      mirror={false}
+      orientation="left"
+      padding={
+        Object {
+          "bottom": 0,
+          "top": 0,
+        }
+      }
+      reversed={false}
+      scale="auto"
+      tickCount={5}
+      type="number"
+      unit="°C"
+      width={60}
+      yAxisId={0}
+    />
+    <Tooltip
+      active={false}
+      allowEscapeViewBox={
+        Object {
+          "x": false,
+          "y": false,
+        }
+      }
+      animationDuration={400}
+      animationEasing="ease"
+      contentStyle={Object {}}
+      coordinate={
+        Object {
+          "x": 0,
+          "y": 0,
+        }
+      }
+      cursor={true}
+      cursorStyle={Object {}}
+      filterNull={true}
+      isAnimationActive={true}
+      itemStyle={Object {}}
+      labelStyle={Object {}}
+      offset={10}
+      separator=" : "
+      useTranslate3d={false}
+      viewBox={
+        Object {
+          "x1": 0,
+          "x2": 0,
+          "y1": 0,
+          "y2": 0,
+        }
+      }
+      wrapperStyle={Object {}}
+    />
+    <CartesianGrid
+      fill="none"
+      horizontal={true}
+      horizontalFill={Array []}
+      horizontalPoints={Array []}
+      stroke="#eee"
+      strokeDasharray="5 5"
+      vertical={true}
+      verticalFill={Array []}
+      verticalPoints={Array []}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#addfad"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#87ceeb"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#fcf75e"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#ffa500"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#ff4040"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Area
+      activeDot={false}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#c80815"
+      fillOpacity="0.2"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      points={Array []}
+      stackId="1"
+      stroke="white"
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Line
+      activeDot={true}
+      animateNewValues={true}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#fff"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      onAnimationEnd={[Function]}
+      onAnimationStart={[Function]}
+      points={Array []}
+      stroke="orange"
+      strokeWidth={1}
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Line
+      activeDot={true}
+      animateNewValues={true}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#fff"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      onAnimationEnd={[Function]}
+      onAnimationStart={[Function]}
+      points={Array []}
+      stroke="blue"
+      strokeWidth={1}
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Line
+      activeDot={true}
+      animateNewValues={true}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#fff"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      onAnimationEnd={[Function]}
+      onAnimationStart={[Function]}
+      points={Array []}
+      stroke="green"
+      strokeWidth={1}
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+    <Line
+      activeDot={true}
+      animateNewValues={true}
+      animationBegin={0}
+      animationDuration={1500}
+      animationEasing="ease"
+      connectNulls={false}
+      dataKey=""
+      dot={false}
+      fill="#fff"
+      hide={false}
+      isAnimationActive={true}
+      legendType="line"
+      name="Bushfire rating"
+      onAnimationEnd={[Function]}
+      onAnimationStart={[Function]}
+      onMouseOver={[Function]}
+      points={Array []}
+      stroke="red"
+      strokeWidth={1}
+      type="monotone"
+      xAxisId={0}
+      yAxisId={0}
+    />
+  </ComposedChart>
+</ResponsiveContainer>
+`;
