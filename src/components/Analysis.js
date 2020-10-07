@@ -11,22 +11,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
-import moment from 'moment';
-
-import Title from './Title';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 function Analysis(props){
-    
-    // let i = 0
-    // for (i; i<tempData.length; i++){
-    //     for (var _ in tempData[i]){
-            
-    //     }
-    // }
-    
     
     return(
         <Grid xs={12} md={12} lg={12}>
