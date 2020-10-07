@@ -64,7 +64,7 @@ function Bushfire(props) {
   
     const [maxTemp, setMaxTemp] = useState([]);
 
-    const stationId = props.station.station;
+    // const stationId = props.station.station;
 
     const [state, setState] = React.useState({
       temperature: true,
@@ -127,13 +127,13 @@ function Bushfire(props) {
       }
 
       console.log(endTimestamp);
-      setTempData(data);
+      // setTempData(data);
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
-      setMaxTemperature(max);
-      getHumidityWind(props.station.LGA, setHumidityWind, startTimestamp, endTimestamp)
-      getForecastedTemperature(stationId, setTempData, startTimestamp, endTimestamp)
-      getTemperature(stationId, setPastTempData, startTimestamp, endTimestamp).then((response)=>updateChart());
+      setMaxTemperature(max)
+      getHumidityWind(props.station.LGA, (db_hw) => {setHumidityWind(db_hw); console.log('db_hw fetched', db_hw);}, startTimestamp, endTimestamp)
+      getForecastedTemperature(props.station.station, (db_temp) => {setTempData(db_temp); console.log('db_temp fetched', db_temp)}, startTimestamp, endTimestamp)
+      getTemperature(props.station.station, (db_past) => {setPastTempData(db_past); console.log('db_past fetched', db_past)}, startTimestamp, endTimestamp);
     }
       
     const FFDI = (temp, climate) =>{
@@ -157,8 +157,9 @@ function Bushfire(props) {
       }
     }
 
-    const updateChart = () => {
+    function updateChart() {
         let empty = [];
+          console.log('data', humidityWindData, pastTempData, tempData);
 
           var dict = new Map();
           humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
@@ -172,6 +173,7 @@ function Bushfire(props) {
         
           let max = FFDI(maxTemperature);
           setMaxTemp(empty);
+          console.log('empty', empty);
 
           if (max > 99) {         
             let level = [...constLevel]
@@ -188,9 +190,22 @@ function Bushfire(props) {
 
     }
 
+
+
     useEffect(() => {
+        console.log('--------- refresh temp and chart');
         refreshTemp();
-    }, [])
+        // setTimeout(updateChart, 2000);
+    }, [props.station.station])
+
+    useEffect(() => {
+    //   tempData, setTempData] = useState([]);
+    // const [pastTempData, setPastTempData] = useState([]);
+    // const [humidityWindData
+    console.log('state_data', humidityWindData, pastTempData, tempData);
+    setTimeout(updateChart, 1000);
+  }, [pastTempData])
+
 
     //HANDLE SLIDERS
     const handleHumidity= (e,val) => {
@@ -215,7 +230,7 @@ function Bushfire(props) {
                 <Analysis method={{
                   setDateRange:setDateRange, 
                   refreshTemp:refreshTemp,
-                  stationId:stationId,
+                  stationId:props.station.station,
                   dateRange:dateRange,
                   tempData:maxTemp,
                   state:state}}/>

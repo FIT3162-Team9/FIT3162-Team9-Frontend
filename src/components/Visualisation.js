@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Chart from './TemperatureChart';
-import { getTemperature } from './firebase';
+import { getTemperature, getForecastedTemperature } from './firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid'
@@ -21,11 +21,13 @@ import { temperature as data } from './data/tempdata';
 
 function TemperatureVisualisation(props){
     const [tempData, setTempData] = useState([]);
+    const [forecastedData, setForecastedData] = useState([]);
+    const [combinedData, setCombinedData] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     
     useEffect(() => {
         refreshTemp();
-    }, [])
+    }, [props.station])
 
     function refreshTemp() {
         let formattedDateRange = dateRange.map(date => moment(date).unix());
@@ -33,8 +35,12 @@ function TemperatureVisualisation(props){
         const startTimestamp = formattedDateRange[0];
         const endTimestamp = formattedDateRange[1]
         getTemperature(props.station, setTempData, startTimestamp, endTimestamp);
-        // setTempData(data)
+        getForecastedTemperature(props.station, setForecastedData, startTimestamp, endTimestamp);
     }
+
+    useEffect(() => {
+        setCombinedData(tempData.concat(forecastedData));
+    }, [tempData, forecastedData])
 
     return(
         <Grid xs={12} md={12} lg={12}>
@@ -58,7 +64,7 @@ function TemperatureVisualisation(props){
                 </div>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
-                {(tempData.length !== 0) ? (<Chart data={tempData}/>) : (<CircularProgress/>)}
+                {(combinedData.length !== 0) ? (<Chart data={combinedData}/>) : (<CircularProgress/>)}
             </Grid>
         </Grid>
 

@@ -11,7 +11,7 @@ import Items from './NavbarItem';
 import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from '../pages/Home';
-import Bushfire from '../pages/Bushfire';
+import Bushfire from '../pages/bushfire';
 import Temperature from '../pages/Temperature';
 import About from '../pages/About';
 import "./../App.css";
