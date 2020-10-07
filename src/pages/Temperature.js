@@ -28,30 +28,13 @@ const useStyles = makeStyles(theme => ({
   }))
 
 function Temperature(props) {
-  const [startDate, setStartDate] = useState("2000");
-  const [endDate, setEndDate] = useState("2020");
-  const [temporaryStartDate, setTemporaryStartDate] = useState(null);
-  const [temporaryEndDate, setTemporaryEndDate] = useState(null);
+
 
   useEffect(() => {
     console.log('TEMPERATURE PROPS ---- ', props.station);
   }, [props])
 
   //Requires attention: Year of start date should be earlier than year of end date.  
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    if (temporaryStartDate && temporaryEndDate){
-      setEndDate(temporaryEndDate.getFullYear());
-      setStartDate(temporaryStartDate.getFullYear());
-    }
-  }
-
-  const handleChange = (date) =>{
-    setTemporaryStartDate(date);
-  }
-  const handleChangeE = (date) =>{
-    setTemporaryEndDate(date);
-  }
 
   const classes = useStyles()
 
@@ -62,7 +45,7 @@ function Temperature(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} md={12} lg={12}>
           <Paper className={autoHeightPaper}>
-            <TemperatureVisualisation/>
+            <TemperatureVisualisation station={props.station}/>
           </Paper>
         </Grid>
       </Grid>

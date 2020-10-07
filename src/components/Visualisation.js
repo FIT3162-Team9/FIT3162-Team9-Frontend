@@ -22,10 +22,6 @@ import { temperature as data } from './data/tempdata';
 function TemperatureVisualisation(props){
     const [tempData, setTempData] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
-    // const [stationId, setStationId] = React.useState('76031');
-    const stationId = props.station;
-
-    const validStationIds = ['76031', '76047', '76064']
     
     useEffect(() => {
         refreshTemp();
@@ -36,13 +32,9 @@ function TemperatureVisualisation(props){
         console.log('dateRange', formattedDateRange);
         const startTimestamp = formattedDateRange[0];
         const endTimestamp = formattedDateRange[1]
-        // getTemperature(stationId, setTempData, startTimestamp, endTimestamp);
-        setTempData(data)
+        getTemperature(props.station, setTempData, startTimestamp, endTimestamp);
+        // setTempData(data)
     }
-
-    // const handleStationIdChange = (event) => {
-    //     setStationId(event.target.value);
-    // };
 
     return(
         <Grid xs={12} md={12} lg={12}>
@@ -56,18 +48,6 @@ function TemperatureVisualisation(props){
             >
                 <Typography>Temperature</Typography>
                 <div style={{justifyContent: 'center'}}>
-{/*                    
-
-                    <FormControl size="small" style={{paddingRight: 10, paddingLeft: 10 }}>
-                        <Select
-                            labelId="station-id-label"
-                            id="station-id"
-                            value={stationId}
-                            onChange={handleStationIdChange}
-                        >
-                            {validStationIds.map(id => <MenuItem value={id}>{id}</MenuItem>)}
-                        </Select>
-                    </FormControl> */}
                     <DateRangePicker
                         onChange={setDateRange}
                         value={dateRange}

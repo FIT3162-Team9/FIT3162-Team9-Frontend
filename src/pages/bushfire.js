@@ -95,7 +95,6 @@ function Bushfire(props) {
     }, [humidityWindData])
 
     //Add humidity & wind to datasets
-
     function addHumidityWind(){
 
     }
@@ -188,9 +187,10 @@ function Bushfire(props) {
           }
 
     }
+
     useEffect(() => {
-      refreshTemp();
-  }, [])
+        refreshTemp();
+    }, [])
 
     //HANDLE SLIDERS
     const handleHumidity= (e,val) => {
@@ -233,9 +233,7 @@ function Bushfire(props) {
 
           </Grid>
           <Grid item xs={12} md={4} lg={3} className={classes.filterHeight}>
-            
                 <Popup props={{open:open, handleClickOpen:handleClickOpen, handleClose:handleClose}}/>
-                
           </Grid>
         </Grid>
       </Container>  
