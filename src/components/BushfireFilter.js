@@ -9,7 +9,7 @@ import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import HorizontalSplitRoundedIcon from '@material-ui/icons/HorizontalSplitRounded';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import { Icon, InlineIcon } from '@iconify/react';
-import windIcon from '@iconify/icons-feather/wind';
+
 
 const GreenCheckbox = withStyles({
   root: {
@@ -85,8 +85,8 @@ export default function BushfireFilter(props) {
     <FormControlLabel
         control={
         <Checkbox
-            icon={<Icon icon={windIcon} />}
-            checkedIcon={<Icon icon={windIcon} />}
+            icon={<WhatshotSharpIcon />}
+            checkedIcon={<WhatshotSharpIcon/>}
             name="windspeed"
             onChange = {handleChange}
             style ={{

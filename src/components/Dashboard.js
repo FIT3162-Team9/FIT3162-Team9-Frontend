@@ -11,7 +11,7 @@ import Items from './NavbarItem';
 import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from '../pages/Home';
-import Bushfire from '../pages/bushfire';
+import Bushfire from '../pages/Bushfire';
 import Temperature from '../pages/Temperature';
 import About from '../pages/About';
 import "./../App.css";
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerPaper: {
-    background: "linear-gradient(  rgb(32,150,160) ,rgb(7,71,67,.6), rgb(7,71,67,.6), rgb(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.6), rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
+    background: "linear-gradient(  rgb(32,150,160) ,rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
     position: 'relative',
     whiteSpace: 'nowrap',
     overflowX: 'hidden',
