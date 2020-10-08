@@ -18,19 +18,14 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {      
       overflow: 'auto',
-      
-    },
-    autoHeight: {
       flexGrow: 1,
       height: 'auto',
       width: 'auto',
       padding: '15px',
       paddingTop: '5px',
       margin: '15px',
-      
     },
     container: {
-      
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     },
@@ -46,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     paperColor: {
       background: "linear-gradient(to right bottom, #316e80, white, white, #316e80 )" ,
     },
-    paperPadding: {
+    outerPaper: {
       display: 'flex',
       flexGrow: 1,
       flexDirection: 'column',
@@ -73,14 +68,12 @@ const useStyles = makeStyles(theme => ({
 
 function Home(props) {
     const classes = useStyles()
-    const autoHeightPaper = clsx(classes.paper, classes.autoHeight)
-    const autoHeightColoredPaper = clsx(classes.paper, classes.autoHeight, classes.paperColor)
+    const autoHeightColoredPaper = clsx(classes.paper, classes.paperColor)
     const [userLog, setUserLog] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     const LGA = props ? props.station.LGA : undefined
     const addLog = () => {
-        //if (!props.station.LGA){return} 
-   
+        if (!props.station.LGA){return} 
         let tempUserLog = [userLog];
         const bushfireRatings = [32,52,23,62,30,5,6,57,87,35,75,123,53,74,85,46,2,5]
         let circleList = [];
@@ -93,38 +86,34 @@ function Home(props) {
                             </Typography>
                             {circleList}
                           </Paper>
+                          <Divider/>
                         </Grid>
                           );
-        console.log(dateRange)
         setUserLog(tempUserLog);
        
-        
     }
     useEffect(() => {
     }, [userLog])
-    
-
         return (
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
-                  <Paper className={classes.paperPadding}>
+                  <Paper className={classes.outerPaper}>
                      <Grid item xs={12} md={8} lg={9}>
-                            <Typography className={classes.headerFont}>
-                                SELECTED LGA: {LGA ? LGA : "None"} 
-                            </Typography>
-                            <DateRangePicker className={classes.dateFont}
-                        onChange={setDateRange}
-                        value={dateRange}
-                    />
-                            <Button className={classes.addButton} onClick={()=>addLog()}>
-                                Add User Log
-                            </Button>
-                            <Divider></Divider>
+                        <Typography className={classes.headerFont}>
+                            SELECTED LGA: {LGA ? LGA : "None"} 
+                        </Typography>
+                        <DateRangePicker className={classes.dateFont}
+                          onChange={setDateRange}
+                          value={dateRange}
+                          />
+                        <Button className={classes.addButton} onClick={()=>addLog()}>
+                            Add User Log
+                        </Button>
+                        <Divider></Divider>
                     </Grid>            
                     {userLog}
                   </Paper>
                 </Grid>
-                
             </Container>
         )
     }
