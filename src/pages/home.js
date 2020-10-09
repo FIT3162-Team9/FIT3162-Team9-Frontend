@@ -11,6 +11,7 @@ import Circle from './Circle'
 import moment from 'moment'
 import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { getTemperature, getForecastedTemperature, getHumidityWind } from './../components/firebase';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -72,12 +73,69 @@ function Home(props) {
     const [userLog, setUserLog] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     const LGA = props ? props.station.LGA : undefined
+    const station = props? props.station.station: undefined
+    const [tempData , setTempData] = useState();
+    const [pastTempData , setPastTempData] = useState();
+    const [humidityWindData, setClimateData] = useState();
+    /*FFDI Ratings Calculation*/
+
+    
+
+    const FFDI = (temp, climate) =>{
+      let constant = -0.45;
+      let drought = 0.987 * Math.log(10);
+      let humidity = climate ? 0.0345 * climate['humidity'] : 0.0345 * (5);
+      let temperature = 0.0338 * (temp);
+      let windspeed = climate ? 0.0234 * climate['windspeed'] : 0.0234 * (80);
+      let exponential = (constant + drought - humidity + temperature + windspeed)
+      let ratings = 2 * Math.exp(exponential)
+      console.log("ffdi",temp,climate['humidity'],climate['windspeed'])
+      console.log(ratings)
+      
+      if (ratings<1){
+        return 1
+      }
+      else if (ratings>150) {
+        return 150
+      }
+      else{
+        return ratings
+      }
+    }
+
+
+
+
+    const callData = () => {
+        if (!LGA || !station) {return}
+        let formattedDateRange = dateRange.map(date => moment(date).unix());
+        const startTimestamp = formattedDateRange[0];
+        const endTimestamp = formattedDateRange[1]
+        getForecastedTemperature(station,setTempData,startTimestamp,endTimestamp)
+        getTemperature(station,setPastTempData,startTimestamp,endTimestamp)
+        getHumidityWind(LGA,setClimateData,startTimestamp,endTimestamp)
+    }
+
+
+    /*FFDI Ratings Calculation*/
     const addLog = () => {
-        if (!props.station.LGA){return} 
+      if (!tempData) { return }
+      let empty = [];
+      console.log('data', humidityWindData, pastTempData, tempData);
+
+      var dict = new Map();
+      humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
+      pastTempData.forEach((doc) => empty.push({day:doc['day'],month:doc['month'],humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
+                                                windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                                max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']))}));
+      tempData.forEach((doc) => empty.push({day:doc['day'],month:doc['month'],humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
+                                            windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                            max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']))}));
+        console.log(empty)
+        //if (!props.station.LGA){return} 
         let tempUserLog = [userLog];
-        const bushfireRatings = [32,52,23,62,30,5,6,57,87,35,75,123,53,74,85,46,2,5]
         let circleList = [];
-        bushfireRatings.forEach((doc) => circleList.push(<Circle className={classes.circle} props={doc} />))
+        empty.forEach((doc) => circleList.push(<Circle className={classes.circle} props={doc} />))
         tempUserLog.push(<Grid item xs={12} md={8} lg={9}>
                           <Paper className={autoHeightColoredPaper}>
                             <Typography className={classes.typography}>
@@ -93,20 +151,25 @@ function Home(props) {
        
     }
     useEffect(() => {
+      addLog();
+    }, [humidityWindData]);
+
+    useEffect(() => {
     }, [userLog])
+
         return (
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
                   <Paper className={classes.outerPaper}>
                      <Grid item xs={12} md={8} lg={9}>
                         <Typography className={classes.headerFont}>
-                            SELECTED LGA: {LGA ? LGA : "None"} 
+                            SELECTED LGA: {LGA ? LGA : "None"} / SELECTED STATION: {station ? station : "None"}
                         </Typography>
                         <DateRangePicker className={classes.dateFont}
                           onChange={setDateRange}
                           value={dateRange}
                           />
-                        <Button className={classes.addButton} onClick={()=>addLog()}>
+                        <Button className={classes.addButton} onClick={()=>callData()}>
                             Add User Log
                         </Button>
                         <Divider></Divider>

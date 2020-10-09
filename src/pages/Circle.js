@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +35,7 @@ function CircularProgressWithLabel(props) {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography className={classes.circle} variant="caption" component="div">{`${props.value.props}`}</Typography>
+        <Typography className={classes.circle} variant="caption" component="div">{`${Math.floor(props.value.props.bushfirerating * 10) / 10}`}</Typography>
       </Box>
       <Box
         top={50}
@@ -45,7 +46,7 @@ function CircularProgressWithLabel(props) {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        ><Typography className={classes.date}>16/3</Typography></Box>
+        ><Typography className={classes.date}>{`${props.value.props.day}/${props.value.props.month}`}</Typography></Box>
     </Box>
   );
 }
@@ -61,19 +62,19 @@ CircularProgressWithLabel.propTypes = {
 export default function Circle(props) {
   let color = ""
     
-  if (props.props >= 100){
+  if (props.props.bushfirerating >= 100){
     color = '#c80815';
   }
-  else if (props.props >= 75){
+  else if (props.props.bushfirerating >= 75){
     color = '#ff4040';
   }
-  else if (props.props >= 50){
+  else if (props.props.bushfirerating >= 50){
     color = '#ffa500';
 }
-  else if (props.props >= 25){
+  else if (props.props.bushfirerating >= 25){
     color = '#fcf75e';
 }
-  else if (props.props >= 12){
+  else if (props.props.bushfirerating >= 12){
     color = '#87ceeb';
 }
   else {
