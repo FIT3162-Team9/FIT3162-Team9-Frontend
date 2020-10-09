@@ -11,7 +11,7 @@ import Circle from './Circle'
 import moment from 'moment'
 import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { getTemperature, getForecastedTemperature, getHumidityWind } from './../components/firebase';
+import { getTemperature, getForecastedTemperature, getHumidityWind } from '../components/firebase';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -79,8 +79,6 @@ function Home(props) {
     const [humidityWindData, setClimateData] = useState();
     /*FFDI Ratings Calculation*/
 
-    
-
     const FFDI = (temp, climate) =>{
       let constant = -0.45;
       let drought = 0.987 * Math.log(10);
@@ -103,9 +101,6 @@ function Home(props) {
       }
     }
 
-
-
-
     const callData = () => {
         if (!LGA || !station) {return}
         let formattedDateRange = dateRange.map(date => moment(date).unix());
@@ -115,7 +110,6 @@ function Home(props) {
         getTemperature(station,setPastTempData,startTimestamp,endTimestamp)
         getHumidityWind(LGA,setClimateData,startTimestamp,endTimestamp)
     }
-
 
     /*FFDI Ratings Calculation*/
     const addLog = () => {
@@ -142,6 +136,7 @@ function Home(props) {
                               {LGA ? LGA : "No LGA Selected"} {`(${ moment(dateRange[0]).format('DD-MM-YYYY')
                                 } -> ${moment(dateRange[1]).format('DD-MM-YYYY')})`}
                             </Typography>
+                            <Divider/>
                             {circleList}
                           </Paper>
                           <Divider/>
