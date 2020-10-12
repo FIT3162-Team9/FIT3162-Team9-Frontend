@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from 'moment';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
       fontFamily: 'Quicksand',
@@ -22,9 +23,11 @@ const useStyles = makeStyles(theme => ({
 
 function CircularProgressWithLabel(props) {
   const classes = useStyles()
+  const {bushfirerating,day,month} = props;
+  const circular = {value: 100, style: props.style};
   return (
     <Box margin="10px 5px 30px 20px" position="relative" display="inline-flex">
-      <CircularProgress variant="static" {...props} />
+      <CircularProgress variant="static" {...circular} />
       <Box
         top={0}
         left={0}
@@ -35,7 +38,7 @@ function CircularProgressWithLabel(props) {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography className={classes.circle} variant="caption" component="div">{`${Math.floor(props.value.props.bushfirerating * 10) / 10}`}</Typography>
+        <Typography className={classes.circle} variant="caption" component="div">{`${Math.floor(bushfirerating * 10) / 10}`}</Typography>
       </Box>
       <Box
         top={50}
@@ -46,39 +49,52 @@ function CircularProgressWithLabel(props) {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        ><Typography className={classes.date}>{`${props.value.props.day}/${props.value.props.month}`}</Typography></Box>
+        ><Typography className={classes.date}>{`${day}/${month}`}</Typography></Box>
     </Box>
   );
 }
 
 CircularProgressWithLabel.propTypes = {
   /**
-   * The value of the progress indicator for the determinate and static variants.
-   * Value between 0 and 100.
+   * The bushfirerating, day, and month should be numbers displayed on the Circle.
+   * Bushfirerating value above 0
+   * Day between 1 and 31 depending on months
+   * Month between 1 and 12
    */
-  value: PropTypes.number.isRequired,
+  bushfirerating: PropTypes.number.isRequired,
+  day: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
 };
 
 export default function Circle(props) {
   let color = ""
     
-  if (props.props.bushfirerating >= 100){
+  if (props.bushfirerating >= 100){
     color = '#c80815';
   }
-  else if (props.props.bushfirerating >= 75){
+  else if (props.bushfirerating >= 75){
     color = '#ff4040';
   }
-  else if (props.props.bushfirerating >= 50){
+  else if (props.bushfirerating >= 50){
     color = '#ffa500';
 }
-  else if (props.props.bushfirerating >= 25){
+  else if (props.bushfirerating >= 25){
     color = '#fcf75e';
 }
-  else if (props.props.bushfirerating >= 12){
+  else if (props.bushfirerating >= 12){
     color = '#87ceeb';
 }
   else {
     color = '#addfad';
 }
-  return <CircularProgressWithLabel value={props} style={{'color': color}} />;
+  return <CircularProgressWithLabel bushfirerating={props.bushfirerating} day={props.day} month={props.month} style={{'color': color}} />;
 }
+
+Circle.propTypes = {
+  /**
+   *The danger level of the bushfire are determined by the bushfirerating
+   *and different colors will be displayed on the Circle based on the danger level
+   *Bushfirerating value above 0
+   */
+  bushfirerating: PropTypes.number.isRequired,
+};
