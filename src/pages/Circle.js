@@ -58,11 +58,17 @@ CircularProgressWithLabel.propTypes = {
   /**
    * The bushfirerating, day, and month should be numbers displayed on the Circle.
    * Bushfirerating value above 0
-   * Day between 1 and 31 depending on months
-   * Month between 1 and 12
    */
   bushfirerating: PropTypes.number.isRequired,
+  /**
+   * Day of the forecasted bushfire rating
+   * Day between 1 and 31 depending on months
+   */
   day: PropTypes.number.isRequired,
+   /**
+    * Month of the forecasted bushfire rating
+    * Month between 1 and 12
+   */
   month: PropTypes.number.isRequired,
 };
 

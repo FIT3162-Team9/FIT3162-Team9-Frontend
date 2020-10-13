@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import DatePicker from 'react-datepicker';
 import Container from '@material-ui/core/Container';
 import 'react-datepicker/dist/react-datepicker.css'
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
     paper: {

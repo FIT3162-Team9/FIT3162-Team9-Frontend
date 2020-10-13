@@ -1,5 +1,4 @@
 import React, { Component, useState, useEffect } from 'react'
-import TravelLog from './TravelLog';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -75,6 +74,14 @@ const useStyles = makeStyles(theme => ({
     }
   }))
 
+  /**
+ * Home component page to be displayed when selected on navigation bar.
+ * Computes Bushfire Ratings using FFDI Model and climate data called from firebase.
+ * Display forecasted Bushfire Risk to assist users with their travel planning
+ * @param {object} props                props object with key value {station,LGA}
+ * @param {string} props.props.station  Station ID selected by user
+ * @param {string} props.props.LGA     Local Government Area selected by user
+ */
 
 function Home(props) {
     const classes = useStyles()
@@ -88,8 +95,7 @@ function Home(props) {
     const [humidityWindData, setClimateData] = useState();
     /*FFDI Ratings Calculation*/
 
-    
-
+  
     const FFDI = (temp, climate) =>{
       let constant = -0.45;
       let drought = 0.987 * Math.log(10);
@@ -193,5 +199,19 @@ function Home(props) {
             </Container>
         )
     }
+
+Home.propTypes = {
+  /**
+   * LGA selected by user
+   * To perform API call to firebase to fetch humidity/windspeed data
+   */
+  LGA: PropTypes.string.isRequired,
+  /**
+   * Station ID seleceted by user 
+   * To perform API call to firebase to fetch temperature data
+   */
+  station: PropTypes.string.isRequired,
+  
+};
 
 export default Home

@@ -11,10 +11,11 @@ import BushfireFilter from '../components/BushfireFilter'
 import moment from 'moment';
 import {getTemperature,getForecastedTemperature,getHumidityWind} from '../components/firebase'
 import Popup from '../components/Popup';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        fontFamily: 'Quicksand',
+      fontFamily: 'Quicksand',
     },
     paper: {
       display: 'flex',
@@ -52,6 +53,15 @@ const BANYULE = 'banyule';
 const BALLARAT_NORTH = 'ballarat_north';
 const BRIMBANK = 'brimbank';
 
+/**
+ * Bushfire component page to be displayed when selected on navigation bar.
+ * Computes Bushfire Ratings using FFDI Model and climate data called from firebase.
+ * Allows user to do analyze climate trends by displaying these data on a Chart
+ * @param {object} props                props object with key value {station,LGA}
+ * @param {string} props.props.station  Station ID selected by user
+ * @param {string} props.props.LGA     Local Government Area selected by user
+ */
+
 function Bushfire(props) {
     const classes = useStyles()
     const [stateWeather,setWeatherSlider] = useState(['20','20','2',data]);
@@ -74,8 +84,10 @@ function Bushfire(props) {
       windspeed: true,
     });
 
-    
-    //Popup Notification
+    /**
+     * Popup Notification
+     */
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -86,7 +98,9 @@ function Bushfire(props) {
       setOpen(false);
     };
 
-    //White listed LGAs
+    /**
+     * White listed LGAs
+     */
 
     const validLGA = [MILDURA_SHIRE, WELLINGTON, HORSHAM, GREATER_BENDIGO, GLENELG, BANYULE, BALLARAT_NORTH, BRIMBANK, undefined]
 
@@ -94,12 +108,9 @@ function Bushfire(props) {
       console.log('BUSHFIRE PROPS ---- ', props.station.station);
     }, [humidityWindData])
 
-    //Add humidity & wind to datasets
-    function addHumidityWind(){
-
-    }
-    
-    //Function to fetch temperature data from firestore
+    /**
+     *Function to fetch temperature data from firestore
+     */
     function refreshTemp() {
 
       let formattedDateRange = dateRange.map(date => moment(date).unix());
@@ -135,7 +146,16 @@ function Bushfire(props) {
       getForecastedTemperature(props.station.station, (db_temp) => {setTempData(db_temp); console.log('db_temp fetched', db_temp)}, startTimestamp, endTimestamp)
       getTemperature(props.station.station, (db_past) => {setPastTempData(db_past); console.log('db_past fetched', db_past)}, startTimestamp, endTimestamp);
     }
-      
+
+    /**
+     * return forecasted bushfire ratings based on climate input
+     * @param   {number} temp               Temperature value of date X
+     * @param   {object} climate            props with key value {Humidity,Windspeed}
+     * @param   {number} climate.humidity   Humidity value of date X
+     * @param   {number} climate.windspeed  Windspeed value of date X
+     * @return  {number}                    Forecasted Bushfire Rating
+     */  
+
     const FFDI = (temp, climate) =>{
       let constant = -0.45;
       let drought = 0.987 * Math.log(parseInt(stateWeather[2]));
@@ -157,23 +177,25 @@ function Bushfire(props) {
       }
     }
 
+    /**
+     * Calculates bushfire ratings using climate data (temperature,humidity,windspeed) from a range of selected date
+     */  
     function updateChart() {
-        let empty = [];
+        let climateData = [];
           console.log('data', humidityWindData, pastTempData, tempData);
 
           var dict = new Map();
           humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
-          pastTempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
+          pastTempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
                                                     windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
                                                     max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
-          tempData.forEach((doc) => empty.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
+          tempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
                                                 windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
                                                 max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
-        
           let max = FFDI(maxTemperature);
-          setMaxTemp(empty);
-          console.log('empty', empty);
+          setMaxTemp(climateData);
+          console.log('climateData', climateData);
 
           if (max > 99) {         
             let level = [...constLevel]
@@ -255,5 +277,19 @@ function Bushfire(props) {
     )
     
 }
+
+Bushfire.propTypes = {
+  /**
+   * LGA selected by user
+   * To perform API call to firebase to fetch humidity/windspeed data
+   */
+  LGA: PropTypes.string.isRequired,
+  /**
+   * Station ID seleceted by user 
+   * To perform API call to firebase to fetch temperature data
+   */
+  station: PropTypes.string.isRequired,
+  
+};
 
 export default Bushfire
