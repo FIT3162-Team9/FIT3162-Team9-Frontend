@@ -35,13 +35,6 @@ const useStyles = makeStyles((theme) => ({
     background: "linear-gradient(to right,rgba(7,71,67,.7),#40C9BF )", //"linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))"
     paddingRight: 24, // keep right padding when drawer closed
   },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -57,12 +50,6 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
   },
   title: {
     color: 'white',//'#255C59',
@@ -103,19 +90,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     overflow: 'auto',
   },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
   appName:{
     fontFamily: 'Quicksand',
     fontSize: '28px',
@@ -129,9 +103,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: 'white',
   },
-  test:{
-     fontSize: '100px',
-  }
+
 }));
 
 export default function Dashboard() {
@@ -269,8 +241,8 @@ export default function Dashboard() {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
             <Switch>
-              <Route exact path ="/" render={() => <Home station={{station:station, LGA:LGA}}/>}/>
-              <Route exact path ="/bushfire" render={() => <Bushfire station={{station:station, LGA:LGA}}/>}/>
+              <Route exact path ="/" render={() => <Home station={station} LGA={LGA}/>}/>
+              <Route exact path ="/bushfire" render={() => <Bushfire station={station} LGA={LGA}/>}/>
               <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
               <Route exact path ="/about" component={About}/>
             </Switch>

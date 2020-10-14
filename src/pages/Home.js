@@ -11,7 +11,7 @@ import moment from 'moment'
 import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { getTemperature, getForecastedTemperature, getHumidityWind } from './../components/firebase';
-
+import PropTypes from "prop-types";
 const useStyles = makeStyles(theme => ({
     root: {
         fontFamily: 'Quicksand',
@@ -79,8 +79,8 @@ const useStyles = makeStyles(theme => ({
  * Computes Bushfire Ratings using FFDI Model and climate data called from firebase.
  * Display forecasted Bushfire Risk to assist users with their travel planning
  * @param {object} props                props object with key value {station,LGA}
- * @param {string} props.props.station  Station ID selected by user
- * @param {string} props.props.LGA     Local Government Area selected by user
+ * @param {string} props.station  Station ID selected by user
+ * @param {string} props.LGA     Local Government Area selected by user
  */
 
 function Home(props) {
@@ -88,11 +88,12 @@ function Home(props) {
     const autoHeightColoredPaper = clsx(classes.paper, classes.paperColor)
     const [userLog, setUserLog] = useState([]);
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
-    const LGA = props ? props.station.LGA : undefined
-    const station = props? props.station.station: undefined
+    const LGA = props ? props.LGA : undefined
+    const station = props? props.station: undefined
     const [tempData , setTempData] = useState();
     const [pastTempData , setPastTempData] = useState();
     const [humidityWindData, setClimateData] = useState();
+   
     /*FFDI Ratings Calculation*/
 
   
@@ -130,7 +131,7 @@ function Home(props) {
 
     /*FFDI Ratings Calculation*/
     const addLog = () => {
-      if (!props.station.LGA) {return} 
+      if (!LGA) {return} 
       if (!tempData) { return }
       let empty = [];
       console.log('data', humidityWindData, pastTempData, tempData);

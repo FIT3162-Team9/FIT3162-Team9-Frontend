@@ -58,8 +58,8 @@ const BRIMBANK = 'brimbank';
  * Computes Bushfire Ratings using FFDI Model and climate data called from firebase.
  * Allows user to do analyze climate trends by displaying these data on a Chart
  * @param {object} props                props object with key value {station,LGA}
- * @param {string} props.props.station  Station ID selected by user
- * @param {string} props.props.LGA     Local Government Area selected by user
+ * @param {string} props.station  Station ID selected by user
+ * @param {string} props.LGA     Local Government Area selected by user
  */
 
 function Bushfire(props) {
@@ -79,9 +79,9 @@ function Bushfire(props) {
     const [state, setState] = React.useState({
       temperature: true,
       bushfireratings: true,
-      bushfirezone: false,
       humidity: true,
       windspeed: true,
+      bushfirezone: false,
     });
 
     /**
@@ -105,7 +105,7 @@ function Bushfire(props) {
     const validLGA = [MILDURA_SHIRE, WELLINGTON, HORSHAM, GREATER_BENDIGO, GLENELG, BANYULE, BALLARAT_NORTH, BRIMBANK, undefined]
 
     useEffect(() => {
-      console.log('BUSHFIRE PROPS ---- ', props.station.station);
+      console.log('BUSHFIRE PROPS ---- ', props.station);
     }, [humidityWindData])
 
     /**
@@ -119,13 +119,13 @@ function Bushfire(props) {
       const endTimestamp = formattedDateRange[1]
       console.log('startTimestamp', startTimestamp)
 
-      if (!validLGA.includes(props.station.LGA)){
+      if (!validLGA.includes(props.LGA)){
         handleClickOpen()
         return
       } else {
         let minYear = 2009;
 
-        if (props.station.LGA === HORSHAM){
+        if (props.LGA === HORSHAM){
           minYear = 2013;
         }
         
@@ -142,9 +142,9 @@ function Bushfire(props) {
       let max = 0;
       data.forEach((doc) => doc.max > max ? max = doc.max : max = max );
       setMaxTemperature(max)
-      getHumidityWind(props.station.LGA, (db_hw) => {setHumidityWind(db_hw); console.log('db_hw fetched', db_hw);}, startTimestamp, endTimestamp)
-      getForecastedTemperature(props.station.station, (db_temp) => {setTempData(db_temp); console.log('db_temp fetched', db_temp)}, startTimestamp, endTimestamp)
-      getTemperature(props.station.station, (db_past) => {setPastTempData(db_past); console.log('db_past fetched', db_past)}, startTimestamp, endTimestamp);
+      getHumidityWind(props.LGA, (db_hw) => {setHumidityWind(db_hw); console.log('db_hw fetched', db_hw);}, startTimestamp, endTimestamp)
+      getForecastedTemperature(props.station, (db_temp) => {setTempData(db_temp); console.log('db_temp fetched', db_temp)}, startTimestamp, endTimestamp)
+      getTemperature(props.station, (db_past) => {setPastTempData(db_past); console.log('db_past fetched', db_past)}, startTimestamp, endTimestamp);
     }
 
     /**
@@ -209,16 +209,16 @@ function Bushfire(props) {
             max > 74 ? level[4] = (max - 75) : level[4] = 0;
             setLevel(level);
           }
-
+         
     }
 
-
+   
 
     useEffect(() => {
         console.log('--------- refresh temp and chart');
         refreshTemp();
         // setTimeout(updateChart, 2000);
-    }, [props.station.station])
+    }, [props.station])
 
     useEffect(() => {
     //   tempData, setTempData] = useState([]);
@@ -252,7 +252,7 @@ function Bushfire(props) {
                 <Analysis method={{
                   setDateRange:setDateRange, 
                   refreshTemp:refreshTemp,
-                  stationId:props.station.station,
+                  stationId:props.station,
                   dateRange:dateRange,
                   tempData:maxTemp,
                   state:state}}/>
