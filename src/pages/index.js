@@ -22,7 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
-import { getStates, getLGAs, getStations } from "../helpers/HumidityWindApi";
+import { getStates, getLGAs, getStations } from "../helpers/LocationApi";
 
 const drawerWidth = 220;
 

@@ -9,7 +9,8 @@ import { temperature as data } from '../../mocks/tempdata';
 import Analysis from './Analysis';
 import BushfireFilter from './BushfireFilter'
 import moment from 'moment';
-import {getTemperature,getForecastedTemperature,getHumidityWind} from '../../helpers/HumidityWindApi'
+import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
+import { getHumidityWind } from '../../helpers/HumidityWindApi';
 import Popup from '../../components/Popup';
 import PropTypes from 'prop-types';
 

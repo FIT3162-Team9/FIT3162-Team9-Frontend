@@ -13,7 +13,8 @@ import moment from 'moment'
 import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
-import { getTemperature, getForecastedTemperature, getHumidityWind } from '../../helpers/HumidityWindApi';
+import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
+import { getHumidityWind } from '../../helpers/HumidityWindApi';
 
 const useStyles = makeStyles(theme => ({
     root: {

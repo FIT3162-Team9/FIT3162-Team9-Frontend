@@ -21,12 +21,37 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-export function getStates(){
-
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-export function get(){
+export const getStates = () => {
+  // Hardcoded states
+  return ['nsw', 'nt', 'qld', 'sa', 'tas', 'vic', 'wa'];
+}
 
+export const getLGAs = async (state, setLGAs) => {
+  const db = firebase.firestore();
+
+  var lgaRef = db.collection('lga').doc(state).collection('lga_to_stations')
+  lgaRef.get().then(querySnapshot => {
+    const lgaData = [];
+    querySnapshot.forEach((doc) => lgaData.push(doc.id));
+    console.log('lga data', lgaData);
+    setLGAs(lgaData);
+  })
+}
+
+export const getStations = async (state, station, setStations) => {
+  const db = firebase.firestore();
+
+  var stationRef = db.collection('lga').doc(state).collection('lga_to_stations').doc(station)
+
+  return stationRef.onSnapshot((snapshot) => {
+    const array = snapshot.data().array;
+    const stations = array.map((item) => item.number)
+    console.log('stations', stations);
+    setStations(stations);
+
+  });
 }

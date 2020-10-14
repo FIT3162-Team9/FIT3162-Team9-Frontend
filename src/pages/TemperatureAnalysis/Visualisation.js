@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Chart from './TemperatureChart';
-import { getTemperature, getForecastedTemperature } from '../../helpers/HumidityWindApi';
+import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid'

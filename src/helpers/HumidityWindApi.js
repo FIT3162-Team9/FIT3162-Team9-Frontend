@@ -21,44 +21,8 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// export const getMaxTemp = async (station='IDCJAC0010', setMaxTemp, startAt, endAt) => {
-//   const db = firebase.firestore();
-
-//   var max_ref = db.collection('temperature').doc('max').collection(station).orderBy("date").startAt(startAt).endAt(endAt);
-  
-//   return max_ref.onSnapshot((snapshot) => {
-//     const maxTemp = [];
-//     snapshot.forEach((doc) => maxTemp.push({ ...doc.data(), id: doc.id }));
-//     console.log('Fetched all data', maxTemp);
-//     setMaxTemp(maxTemp);
-//   });
-// }
-
-export const getTemperature = async (station='', setTempData, startAt, endAt) => {
-  const db = firebase.firestore();
-
-  var tempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
-  
-  return tempStationRef.onSnapshot((snapshot) => {
-    const tempData = [];
-    snapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
-    console.log('Fetched all data', tempData);
-    setTempData(tempData);
-  });
-}
-
-export const getForecastedTemperature= async (station='', setTempData, startAt, endAt) => {
-  const db = firebase.firestore();
-  var tempStationRef = db.collection('forecast').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
-  
-  return tempStationRef.onSnapshot((snapshot) => {
-    let tempData = [];
-    snapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
-    console.log('Fetched all data', tempData);
-    setTempData(tempData);
-  });
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
 
@@ -75,36 +39,3 @@ export const getHumidityWind= async (LGA='', setHumidityWind, startAt, endAt) =>
   });
 }
 
-export const getStates = () => {
-  // Hardcoded states
-  return ['nsw', 'nt', 'qld', 'sa', 'tas', 'vic', 'wa'];
-}
-
-export const getLGAs = async (state, setLGAs) => {
-  const db = firebase.firestore();
-
-  var lgaRef = db.collection('lga').doc(state).collection('lga_to_stations')
-  lgaRef.get().then(querySnapshot => {
-    const lgaData = [];
-    querySnapshot.forEach((doc) => lgaData.push(doc.id));
-    console.log('lga data', lgaData);
-    setLGAs(lgaData);
-  })
-}
-
-export const getStations = async (state, station, setStations) => {
-  const db = firebase.firestore();
-
-  var stationRef = db.collection('lga').doc(state).collection('lga_to_stations').doc(station)
-
-  return stationRef.onSnapshot((snapshot) => {
-    const array = snapshot.data().array;
-    const stations = array.map((item) => item.number)
-    console.log('stations', stations);
-    setStations(stations);
-
-    // snapshot.forEach((doc) => stations.push({ ...doc.data(), id: doc.id }));
-    // console.log('Fetched all data', tempData);
-    // setStations(tempData);
-  });
-}
