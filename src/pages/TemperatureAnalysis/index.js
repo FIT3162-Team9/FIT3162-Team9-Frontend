@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect} from 'react'
-import TemperatureVisualisation from "../components/Visualisation"
+import TemperatureVisualisation from "./Visualisation"
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'

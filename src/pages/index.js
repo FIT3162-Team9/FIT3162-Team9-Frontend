@@ -7,12 +7,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Items from './NavbarItem';
+import Items from './../components/NavBar/NavbarItem';
 import './../fonts/Quicksand-Regular.ttf';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from '../pages/Home';
-import Bushfire from '../pages/Bushfire';
-import Temperature from '../pages/Temperature';
+import Home from '../pages/Dashboard';
+import Bushfire from '../pages/BushfireAnalysis';
+import Temperature from '../pages/TemperatureAnalysis';
 import About from '../pages/About';
 import "./../App.css";
 
@@ -22,7 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
-import { getStates, getLGAs, getStations } from "./firebase";
+import { getStates, getLGAs, getStations } from "../helpers/HumidityWindApi";
 
 const drawerWidth = 220;
 

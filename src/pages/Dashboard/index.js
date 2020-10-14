@@ -1,4 +1,6 @@
 import React, { Component, useState, useEffect } from 'react'
+import PropTypes from 'prop-types';
+
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -10,8 +12,10 @@ import Circle from './Circle'
 import moment from 'moment'
 import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { getTemperature, getForecastedTemperature, getHumidityWind } from './../components/firebase';
+
+import { getTemperature, getForecastedTemperature, getHumidityWind } from '../../helpers/HumidityWindApi';
 import PropTypes from "prop-types";
+
 const useStyles = makeStyles(theme => ({
     root: {
         fontFamily: 'Quicksand',
@@ -174,31 +178,31 @@ function Home(props) {
     useEffect(() => {
     }, [userLog])
 
-        return (
-            <Container maxWidth="lg" className={classes.container}>
-                <Grid container spacing={3}>
-                  <Paper className={classes.outerPaper}>
-                     <Grid item xs={12} md={8} lg={9}>
-                        <Typography className={classes.headerFont}>
-                            SELECTED LGA: {LGA ? LGA : "None"} / SELECTED STATION: {station ? station : "None"}
-                        </Typography>
-                        <DateRangePicker className={classes.dateFont}
-                          onChange={setDateRange}
-                          value={dateRange}
-                          />
-                        <Button className={classes.addButton} onClick={()=>callData()}>
-                            Add User Log
-                        </Button>
-                        <Button onClick={()=>clearPage()}>
-                          Clear
-                        </Button>
-                        <Divider></Divider>
-                    </Grid>            
-                    {userLog}
-                  </Paper>
-                </Grid>
-            </Container>
-        )
+    return (
+        <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              <Paper className={classes.outerPaper}>
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Typography className={classes.headerFont}>
+                        SELECTED LGA: {LGA ? LGA : "None"} / SELECTED STATION: {station ? station : "None"}
+                    </Typography>
+                    <DateRangePicker className={classes.dateFont}
+                      onChange={setDateRange}
+                      value={dateRange}
+                      />
+                    <Button className={classes.addButton} onClick={()=>callData()}>
+                        Add User Log
+                    </Button>
+                    <Button onClick={()=>clearPage()}>
+                      Clear
+                    </Button>
+                    <Divider></Divider>
+                </Grid>            
+                {userLog}
+              </Paper>
+            </Grid>
+        </Container>
+    )
     }
 
 Home.propTypes = {

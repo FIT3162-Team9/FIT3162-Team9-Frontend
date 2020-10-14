@@ -4,13 +4,13 @@ import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import CustomizedSlider from '../components/Slider'
-import { temperature as data } from '../components/data/tempdata';
-import Analysis from '../components/Analysis';
-import BushfireFilter from '../components/BushfireFilter'
+import CustomizedSlider from '../../components/Slider'
+import { temperature as data } from '../../mocks/tempdata';
+import Analysis from './Analysis';
+import BushfireFilter from './BushfireFilter'
 import moment from 'moment';
-import {getTemperature,getForecastedTemperature,getHumidityWind} from '../components/firebase'
-import Popup from '../components/Popup';
+import {getTemperature,getForecastedTemperature,getHumidityWind} from '../../helpers/HumidityWindApi'
+import Popup from '../../components/Popup';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
