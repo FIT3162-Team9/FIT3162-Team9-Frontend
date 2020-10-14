@@ -14,7 +14,6 @@ import Divider from '@material-ui/core/Divider'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import { getTemperature, getForecastedTemperature, getHumidityWind } from '../../helpers/HumidityWindApi';
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
     root: {
