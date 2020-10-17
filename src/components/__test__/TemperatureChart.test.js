@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from "enzyme";
 import toJson from "enzyme-to-json";
-import Chart from './../TemperatureChart'
+import Chart from './../../pages/TemperatureAnalysis/TemperatureChart'
 
 it("TemperatureChart renders without crashing", () => {
   shallow(<Chart />);

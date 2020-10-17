@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from "enzyme";
 import toJson from "enzyme-to-json";
-import Chart from './../AnalysisChart'
+import Chart from './../../pages/BushfireAnalysis/AnalysisChart'
 
 it("AnalysisChart renders without crashing", () => {
   shallow(<Chart />);

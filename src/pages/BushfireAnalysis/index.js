@@ -159,12 +159,12 @@ function Bushfire(props) {
 
           pastTempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
                                                           windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
-                                                          max:doc['max'], timestamp:moment(doc['timestamp']).format("DD-MM-YYYY"), bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
+                                                          max:doc['max'],date:`${doc['day']}-${doc['month']}-${doc['year']}`, bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
                                                           low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
           tempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
                                                       windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
-                                                      max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
+                                                      max:doc['max'],date:`${doc['day']}-${doc['month']}-${doc['year']}`,bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
                                                       low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
           let max = FFDI(maxTemperature);

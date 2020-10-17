@@ -24,7 +24,7 @@ export default ({ data }) => {
   return (
       <ResponsiveContainer height={300} width="95%">
         <ComposedChart data={data ? data.data : undefined}>
-          <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
+          <XAxis dataKey="date" />
           <YAxis unit='°C' />
           <Tooltip/>{/* <Tooltip content={<CustomTooltip />}/> */}
           <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
