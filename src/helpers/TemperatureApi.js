@@ -1,6 +1,6 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
-
+import moment from 'moment';
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
 import "firebase/analytics";
 
@@ -38,10 +38,24 @@ if (!firebase.apps.length) {
 //   });
 // }
 
+export const testing = async () => {
+  const db = firebase.firestore();
+
+  var tempStationRef = db.collection('data').doc('temperature').collection('76031').orderBy("timestamp").startAt(moment(1568657396).unix()).endAt(moment(1569506400).unix());
+
+  tempStationRef.onSnapshot((snapshot) => {
+    const tempData = [12];
+    snapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
+    return tempData
+  });
+
+}
+
 export const getTemperature = async (station='', setTempData, startAt, endAt) => {
   const db = firebase.firestore();
 
   var tempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
+  
   
   return tempStationRef.onSnapshot((snapshot) => {
     const tempData = [];

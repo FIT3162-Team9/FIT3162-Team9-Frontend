@@ -106,6 +106,20 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+export const Routes = (props) => {
+  const {station,LGA} = props;
+  return (
+      <>
+          <Switch>
+              <Route exact path ="/" render={() => <Home station={station} LGA={LGA}/>}/>
+              <Route exact path ="/bushfire" render={() => <Bushfire station={station} LGA={LGA}/>}/>
+              <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
+              <Route exact path ="/about" component={About}/>
+            </Switch>
+      </>
+  )
+};
+
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -240,12 +254,7 @@ export default function Dashboard() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-            <Switch>
-              <Route exact path ="/" render={() => <Home station={station} LGA={LGA}/>}/>
-              <Route exact path ="/bushfire" render={() => <Bushfire station={station} LGA={LGA}/>}/>
-              <Route exact path ="/temperature" render={() => <Temperature station={station}/>} />
-              <Route exact path ="/about" component={About}/>
-            </Switch>
+            <Routes station={station} LGA={LGA}/>
         </main>
     </div>
     </Router>

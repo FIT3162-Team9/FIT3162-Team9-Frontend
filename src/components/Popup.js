@@ -17,10 +17,10 @@ export default function Popup(props) {
   return (
     <div>
       <Dialog
-        open={prop.open}
+        open={prop ? prop.open : null}
         TransitionComponent={Transition}
         keepMounted
-        onClose={prop.handleClose}
+        onClose={prop ? prop.handleClose : null}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
@@ -42,7 +42,7 @@ export default function Popup(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={prop.handleClose} color="primary">
+          <Button onClick={prop ? prop.handleClose : null} color="primary">
             Okay
           </Button>
         </DialogActions>

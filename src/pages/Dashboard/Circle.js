@@ -21,6 +21,28 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
+export const bushfireColor = (bushfirerating) => {
+  if (bushfirerating >= 100){
+    return '#c80815';
+  }
+  else if (bushfirerating >= 75){
+    return '#ff4040';
+  }
+  else if (bushfirerating >= 50){
+    return '#ffa500';
+}
+  else if (bushfirerating >= 25){
+    return '#fcf75e';
+}
+  else if (bushfirerating >= 12){
+    return '#87ceeb';
+}
+  else {
+    return '#addfad';
+}
+
+}
+
 function CircularProgressWithLabel(props) {
   const classes = useStyles()
   const {bushfirerating,day,month} = props;
@@ -73,26 +95,7 @@ CircularProgressWithLabel.propTypes = {
 };
 
 export default function Circle(props) {
-  let color = ""
-    
-  if (props.bushfirerating >= 100){
-    color = '#c80815';
-  }
-  else if (props.bushfirerating >= 75){
-    color = '#ff4040';
-  }
-  else if (props.bushfirerating >= 50){
-    color = '#ffa500';
-}
-  else if (props.bushfirerating >= 25){
-    color = '#fcf75e';
-}
-  else if (props.bushfirerating >= 12){
-    color = '#87ceeb';
-}
-  else {
-    color = '#addfad';
-}
+  const color = bushfireColor(props.bushfirerating);
   return <CircularProgressWithLabel bushfirerating={props.bushfirerating} day={props.day} month={props.month} style={{'color': color}} />;
 }
 

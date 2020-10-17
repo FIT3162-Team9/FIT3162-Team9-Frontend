@@ -13,6 +13,7 @@ import { getTemperature, getForecastedTemperature } from '../../helpers/Temperat
 import { getHumidityWind } from '../../helpers/HumidityWindApi';
 import Popup from '../../components/Popup';
 import PropTypes from 'prop-types';
+import {FFDI} from './FFDI';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -113,7 +114,7 @@ function Bushfire(props) {
      *Function to fetch temperature data from firestore
      */
     function refreshTemp() {
-
+      console.log(dateRange)
       let formattedDateRange = dateRange.map(date => moment(date).unix());
       console.log('dateRange', formattedDateRange);
       const startTimestamp = formattedDateRange[0];
@@ -125,13 +126,10 @@ function Bushfire(props) {
         return
       } else {
         let minYear = 2009;
-
         if (props.LGA === HORSHAM){
           minYear = 2013;
         }
-        
         const checkStartTimestamp = moment({ year: minYear, month: 1, day: 1}).unix();
-
         if (checkStartTimestamp > startTimestamp){
           handleClickOpen();
           return
@@ -148,35 +146,6 @@ function Bushfire(props) {
       getTemperature(props.station, (db_past) => {setPastTempData(db_past); console.log('db_past fetched', db_past)}, startTimestamp, endTimestamp);
     }
 
-    /**
-     * return forecasted bushfire ratings based on climate input
-     * @param   {number} temp               Temperature value of date X
-     * @param   {object} climate            props with key value {Humidity,Windspeed}
-     * @param   {number} climate.humidity   Humidity value of date X
-     * @param   {number} climate.windspeed  Windspeed value of date X
-     * @return  {number}                    Forecasted Bushfire Rating
-     */  
-
-    const FFDI = (temp, climate) =>{
-      let constant = -0.45;
-      let drought = 0.987 * Math.log(parseInt(stateWeather[2]));
-      let humidity = climate ? 0.0345 * climate['humidity'] : 0.0345 * (parseInt(stateWeather[0]));
-      let temperature = 0.0338 * (temp);
-      let windspeed = climate ? 0.0234 * climate['windspeed'] : 0.0234 * (parseInt(stateWeather[1]));
-      let exponential = (constant + drought - humidity + temperature + windspeed)
-      let ratings = 2 * Math.exp(exponential)
-      
-      
-      if (ratings<1){
-        return 1
-      }
-      else if (ratings>150) {
-        return 150
-      }
-      else{
-        return ratings
-      }
-    }
 
     /**
      * Calculates bushfire ratings using climate data (temperature,humidity,windspeed) from a range of selected date
@@ -187,12 +156,16 @@ function Bushfire(props) {
 
           var dict = new Map();
           humidityWindData.forEach((doc) => dict.set(doc['timestamp'],{humidity:doc['humidity'],windspeed:doc['windspeed']}));
+
           pastTempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null ,
-                                                    windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
-                                                    max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+                                                          windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                                          max:doc['max'], timestamp:moment(doc['timestamp']).format("DD-MM-YYYY"), bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
+                                                          low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+          
           tempData.forEach((doc) => climateData.push({humidity:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['humidity'] : null,
-                                                windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
-                                                max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp'])),low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
+                                                      windspeed:dict.get(doc['timestamp']) ? dict.get(doc['timestamp'])['windspeed'] : null,
+                                                      max:doc['max'],timestamp:doc['timestamp'],bushfirerating:FFDI(doc['max'],dict.get(doc['timestamp']),stateWeather[2]),
+                                                      low:constLevel[0],high:constLevel[1],veryhigh:constLevel[2],severe:constLevel[3],extreme:constLevel[4],catastrophic:constLevel[5]}));
           
           let max = FFDI(maxTemperature);
           setMaxTemp(climateData);
@@ -213,8 +186,6 @@ function Bushfire(props) {
          
     }
 
-   
-
     useEffect(() => {
         console.log('--------- refresh temp and chart');
         refreshTemp();
@@ -222,11 +193,8 @@ function Bushfire(props) {
     }, [props.station])
 
     useEffect(() => {
-    //   tempData, setTempData] = useState([]);
-    // const [pastTempData, setPastTempData] = useState([]);
-    // const [humidityWindData
-    console.log('state_data', humidityWindData, pastTempData, tempData);
-    setTimeout(updateChart, 1000);
+      console.log('state_data', humidityWindData, pastTempData, tempData);
+      setTimeout(updateChart, 1000);
   }, [pastTempData])
 
 
