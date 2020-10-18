@@ -32,8 +32,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    background: "linear-gradient(to right,rgba(7,71,67,.7),#40C9BF )", //"linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))"
+    background: "transparent",//"linear-gradient(to right,rgba(7,71,67,.7),#40C9BF )", //"linear-gradient(to right, #40C9BF, rgba(7,180,67,.3))"
     paddingRight: 24, // keep right padding when drawer closed
+    boxshadow: "none",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -41,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    background: "transparent",
+    boxshadow: "none",
+    height: '0px',
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -52,10 +56,14 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   title: {
-    color: 'white',//'#255C59',
+    color: 'black',//'#255C59',
     fontFamily: 'Quicksand',
     paddingRight: '1450px',
+    paddingLeft: '80px',
+    paddingTop: '-200px',
     flexGrow: 1,
+    fontSize: '40px',
+    
   },
   drawerPaper: {
     background: "linear-gradient(  rgb(32,150,160) ,rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
@@ -103,6 +111,15 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: 'white',
   },
+  dashboardTitle:{
+    color: 'black',//'#255C59',
+    fontFamily: 'Quicksand',
+    paddingRight: '1450px',
+    paddingLeft: '480px',
+    paddingTop: '-200px',
+    flexGrow: 1,
+    fontSize: '40px',
+  }
 
 }));
 
@@ -254,6 +271,20 @@ export default function Dashboard() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
+          <Typography
+            component="h1"
+            variant="h5"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
+            <Switch>
+              <Route exact path ="/"></Route>
+              <Route exact path ="/temperature">VISUALISATION </Route>
+              <Route exact path ="/bushfire">ANALYSIS</Route>
+              <Route exact path ="/about">ABOUT</Route>
+            </Switch>
+          </Typography>
             <Routes station={station} LGA={LGA}/>
         </main>
     </div>

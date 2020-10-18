@@ -25,7 +25,7 @@ exports[`AnalysisChart renders correctly 1`] = `
       allowDataOverflow={false}
       allowDecimals={true}
       allowDuplicatedCategory={true}
-      dataKey="timestamp"
+      dataKey="date"
       domain={
         Array [
           0,
@@ -45,7 +45,6 @@ exports[`AnalysisChart renders correctly 1`] = `
       reversed={false}
       scale="auto"
       tickCount={5}
-      tickFormatter={[Function]}
       type="category"
       width={0}
       xAxisId={0}

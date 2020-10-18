@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px',
   },
   margin: {
-    height: theme.spacing(3),
+    height: theme.spacing(2),
   },
 }));
 
@@ -142,11 +142,11 @@ export default function CustomizedSlider(props) {
         <DroughtSlider onChange={props.method.setDrought} min={0} max={10} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={2} />
       <div className={classes.margin} />    
       </div>
-        <Typography  gutterBottom>Relative humidity (Disabled)</Typography>
+        {/* <Typography  gutterBottom>Relative humidity (Disabled)</Typography>
         <HumiditySlider disabled='true' onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={0} />
       <div className={classes.margin} />
         <Typography  gutterBottom>Wind speed (Disabled)</Typography>
-        <WindSlider disabled='true'onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={0} />
+        <WindSlider disabled='true'onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={0} /> */}
       
     </div>
   );

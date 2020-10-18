@@ -30,8 +30,18 @@ const useStyles = makeStyles(theme => ({
       margin: '15px',
     },
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(0),
       paddingBottom: theme.spacing(4),
+    },
+    title: {
+      color: 'black',//'#255C59',
+      fontFamily: 'Quicksand',
+      paddingRight: '1450px',
+      paddingLeft: '480px',
+      paddingTop: '-200px',
+      flexGrow: 1,
+      fontSize: '40px',
+      
     },
     typography: {
       marginLeft: '20px',
@@ -181,6 +191,15 @@ function Home(props) {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
+              <Typography
+              component="h1"
+              variant="h5"
+              color="inherit"
+              noWrap
+              className={classes.title}
+              >
+                DASHBOARD
+              </Typography>
               <Paper className={classes.outerPaper}>
                   <Grid item xs={12} md={8} lg={9}>
                     <Typography className={classes.headerFont}>

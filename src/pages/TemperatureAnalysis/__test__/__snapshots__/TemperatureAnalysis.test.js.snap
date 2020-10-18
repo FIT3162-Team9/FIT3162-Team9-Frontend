@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Temperature renders correctly 1`] = `
+<WithStyles(ForwardRef(Container))
+  className="makeStyles-container-3"
+  maxWidth="lg"
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      lg={12}
+      md={12}
+      xs={12}
+    >
+      <WithStyles(ForwardRef(Paper))
+        className="makeStyles-paper-1 makeStyles-autoHeight-2"
+      >
+        <TemperatureVisualisation />
+      </WithStyles(ForwardRef(Paper))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Container))>
+`;
+
 exports[`TemperatureChart renders correctly 1`] = `
 <ResponsiveContainer
   debounce={0}

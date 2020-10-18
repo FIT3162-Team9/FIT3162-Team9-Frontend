@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnalysisChart renders correctly 1`] = `
+<BrowserRouter>
+  <div
+    className="makeStyles-root-1"
+  >
+    <WithStyles(CssBaseline) />
+    <WithStyles(ForwardRef(AppBar))
+      className="makeStyles-appBar-3 makeStyles-appBarShift-4"
+      position="absolute"
+    >
+      <WithStyles(ForwardRef(Toolbar))
+        className="makeStyles-toolbar-2"
+      >
+        <WithStyles(ForwardRef(Typography))
+          className="makeStyles-title-5"
+          color="inherit"
+          component="h1"
+          noWrap={true}
+          variant="h5"
+        >
+          <Switch>
+            <Route
+              exact={true}
+              path="/"
+            >
+              DASHBOARD
+            </Route>
+            <Route
+              exact={true}
+              path="/temperature"
+            >
+              VISUALISATION 
+            </Route>
+            <Route
+              exact={true}
+              path="/bushfire"
+            >
+              ANALYSIS
+            </Route>
+            <Route
+              exact={true}
+              path="/about"
+            >
+              ABOUT
+            </Route>
+          </Switch>
+        </WithStyles(ForwardRef(Typography))>
+      </WithStyles(ForwardRef(Toolbar))>
+    </WithStyles(ForwardRef(AppBar))>
+    <WithStyles(ForwardRef(Drawer))
+      classes={
+        Object {
+          "paper": "makeStyles-drawerPaper-6",
+        }
+      }
+      open={true}
+      variant="permanent"
+    >
+      <WithStyles(ForwardRef(Typography))
+        className="makeStyles-appName-10"
+        color="white"
+        component="h1"
+        variant="h5"
+      >
+        S P △ R K
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Typography))
+        color="white"
+        component="h2"
+        style={
+          Object {
+            "color": "white",
+            "marginTop": 20,
+          }
+        }
+        variant="h6"
+      >
+        Station ID: 
+        76031
+      </WithStyles(ForwardRef(Typography))>
+      <div
+        style={
+          Object {
+            "marginTop": 10,
+          }
+        }
+      >
+        <WithStyles(ForwardRef(FormControl))>
+          <WithStyles(ForwardRef(InputLabel))
+            id="state-label"
+          >
+            State
+          </WithStyles(ForwardRef(InputLabel))>
+          <WithStyles(ForwardRef(Select))
+            id="state-select"
+            labelId="state-label"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": 160,
+              }
+            }
+          />
+        </WithStyles(ForwardRef(FormControl))>
+      </div>
+      <div
+        style={
+          Object {
+            "marginTop": 10,
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "marginTop": 10,
+          }
+        }
+      />
+      <WithStyles(ForwardRef(List))
+        className="makeStyles-mainItems-11"
+      >
+         
+        <Items
+          action={[Function]}
+        />
+         
+      </WithStyles(ForwardRef(List))>
+    </WithStyles(ForwardRef(Drawer))>
+    <main
+      className="makeStyles-content-9"
+    >
+      <div
+        className="makeStyles-appBarSpacer-8"
+      />
+      <Routes
+        station="76031"
+      />
+    </main>
+  </div>
+</BrowserRouter>
+`;

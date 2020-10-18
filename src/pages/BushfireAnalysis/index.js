@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   
     },
     sliderHeight:{
-      height: 'auto',
+      height: '180px',
       width: '250px',
     },
     filterHeight:{
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
     },
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(0),
       paddingBottom: theme.spacing(4),
     },
   }))
@@ -81,9 +81,9 @@ function Bushfire(props) {
     const [state, setState] = React.useState({
       temperature: true,
       bushfireratings: true,
-      humidity: true,
-      windspeed: true,
-      bushfirezone: false,
+      humidity: false,
+      windspeed: false,
+      bushfirezone: true,
     });
 
     /**
