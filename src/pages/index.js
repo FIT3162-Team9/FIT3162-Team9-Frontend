@@ -23,6 +23,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
 import { getStates, getLGAs, getStations } from "../helpers/LocationApi";
+import { snakeToTitle } from '../helpers/utils'
 
 const drawerWidth = 220;
 
@@ -37,14 +38,14 @@ const useStyles = makeStyles((theme) => ({
     boxshadow: "none",
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: 0,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     background: "transparent",
     boxshadow: "none",
-    height: '0px',
+    height: '80px',
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -58,12 +59,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: 'black',//'#255C59',
     fontFamily: 'Quicksand',
-    paddingRight: '1450px',
-    paddingLeft: '80px',
-    paddingTop: '-200px',
     flexGrow: 1,
-    fontSize: '40px',
-    
+    fontSize: '44px',
+    textAlign: 'left',
+    paddingTop: '20px',
+    paddingLeft: '10px',
   },
   drawerPaper: {
     background: "linear-gradient(  rgb(32,150,160) ,rgba(7,71,67,.5), rgba(7,71,67,.5), rgb(64,201,191,.2))",//"linear-gradient( #40C9BF, rgba(7,71,67,.5),rgba(7,71,67,.37),rgb(64,201,191,.2))",
@@ -146,10 +146,6 @@ export default function Dashboard() {
   const [LGA, setLGA] = React.useState();
   const [stations, setStations]  = React.useState();
   const [station, setStation] = React.useState('76031');
-  
-  
-  useEffect(() => {
-  }, [LGA]);
 
   const handleSelectedPage = () => {
     console.log("works");
@@ -165,6 +161,7 @@ export default function Dashboard() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
+        elevation={0} 
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
@@ -177,10 +174,10 @@ export default function Dashboard() {
             className={classes.title}
           >
             <Switch>
-              <Route exact path ="/">DASHBOARD</Route>
-              <Route exact path ="/temperature">VISUALISATION </Route>
-              <Route exact path ="/bushfire">ANALYSIS</Route>
-              <Route exact path ="/about">ABOUT</Route>
+              <Route exact path ="/">Dashboard</Route>
+              <Route exact path ="/temperature">Temperature</Route>
+              <Route exact path ="/bushfire">Bushfire Risk</Route>
+              <Route exact path ="/about">About</Route>
             </Switch>
           </Typography>
         </Toolbar>
@@ -236,7 +233,7 @@ export default function Dashboard() {
                   }}
                   style={{width: 160}}
                 >
-                  {LGAs.map((val, index) => <MenuItem key={index} value={val}>{val.split("_").join(" ").toUpperCase()}</MenuItem>)}
+                  {LGAs.map((val, index) => <MenuItem key={index} value={val}>{snakeToTitle(val)}</MenuItem>)}
                 </Select>
               </FormControl>
               }
@@ -271,21 +268,8 @@ export default function Dashboard() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Typography
-            component="h1"
-            variant="h5"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            <Switch>
-              <Route exact path ="/"></Route>
-              <Route exact path ="/temperature">VISUALISATION </Route>
-              <Route exact path ="/bushfire">ANALYSIS</Route>
-              <Route exact path ="/about">ABOUT</Route>
-            </Switch>
-          </Typography>
-            <Routes station={station} LGA={LGA}/>
+          <div className={classes.appBarSpacer} />
+          <Routes station={station} LGA={LGA}/>
         </main>
     </div>
     </Router>

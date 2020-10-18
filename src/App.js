@@ -3,7 +3,7 @@ import Dashboard from './pages';
 import './App.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-
+import { InitUser } from './helpers/UserApi';
 
 
 //Changing fonts https://stackoverflow.com/questions/48319372/changing-font-family-of-all-material-uiversion-1-components
@@ -23,6 +23,7 @@ class App extends Component{
   return (
     <ThemeProvider theme={theme}>
         <div className="App">
+          <InitUser/>
           <Dashboard />
         </div>
       </ThemeProvider>

@@ -15,6 +15,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
 import { getHumidityWind } from '../../helpers/HumidityWindApi';
+import { snakeToTitle } from '../../helpers/utils'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -191,19 +192,13 @@ function Home(props) {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              <Typography
-              component="h1"
-              variant="h5"
-              color="inherit"
-              noWrap
-              className={classes.title}
-              >
-                DASHBOARD
-              </Typography>
               <Paper className={classes.outerPaper}>
                   <Grid item xs={12} md={8} lg={9}>
                     <Typography className={classes.headerFont}>
-                        SELECTED LGA: {LGA ? LGA : "None"} / SELECTED STATION: {station ? station : "None"}
+                        Selected LGA: {LGA ? snakeToTitle(LGA) : "None"}
+                    </Typography>
+                    <Typography className={classes.headerFont}>
+                        Selected Station: {station ? station : "None"}
                     </Typography>
                     <DateRangePicker className={classes.dateFont}
                       onChange={setDateRange}
