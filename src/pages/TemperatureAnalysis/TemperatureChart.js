@@ -11,11 +11,13 @@ function formatXAxis(tickItem) {
 }
 
 export default ({ data }) => {
-  
+  let newData =[]
+  data.forEach((doc) => newData.push({max: doc['max'], min: doc['min'], date:`${doc['day']}-${doc['month']}-${doc['year']}`}))
+
   return (
       <ResponsiveContainer height={300} width="95%">
-        <LineChart data={data}>
-          <XAxis dataKey="timestamp" tickFormatter={formatXAxis} />
+        <LineChart data={newData}>
+          <XAxis dataKey="date" />
           <YAxis unit='°C' />
           <Tooltip/>
           <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>

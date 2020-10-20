@@ -166,8 +166,7 @@ function Home(props) {
         tempUserLog.push(<Grid item xs={12} md={8} lg={9}>
                           <Paper className={autoHeightColoredPaper}>
                             <Typography className={classes.typography}>
-                              {LGA ? LGA : "No LGA Selected"} {`(${ moment(dateRange[0]).format('DD-MM-YYYY')
-                                } -> ${moment(dateRange[1]).format('DD-MM-YYYY')})`}
+                              {LGA ? LGA : "No LGA Selected"} 
                             </Typography>
                             {circleList}
                           </Paper>
