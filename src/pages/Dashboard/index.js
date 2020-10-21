@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: '50px',
     },
     paperColor: {
-      background: "linear-gradient(to right bottom, #316e80, white, white, #316e80 )" ,
+      background: "white" ,
     },
     outerPaper: {
       display: 'flex',
@@ -166,7 +166,7 @@ function Home(props) {
         tempUserLog.push(<Grid item xs={12} md={8} lg={9}>
                           <Paper className={autoHeightColoredPaper}>
                             <Typography className={classes.typography}>
-                              {LGA ? LGA : "No LGA Selected"} 
+                              {LGA ? snakeToTitle(LGA) : "No LGA Selected"} 
                             </Typography>
                             {circleList}
                           </Paper>
