@@ -12,7 +12,8 @@ function formatXAxis(tickItem) {
 
 export default ({ data }) => {
   let newData =[]
-  data.forEach((doc) => newData.push({max: doc['max'], min: doc['min'], date:`${doc['day']}-${doc['month']}-${doc['year']}`}))
+  if (data){data.forEach((doc) => newData.push({max: doc['max'], min: doc['min'], date:`${doc['day']}-${doc['month']}-${doc['year']}`}))}
+  
 
   return (
       <ResponsiveContainer height={300} width="95%">

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Temperature renders correctly 1`] = `
+exports[`Temperature Component Test Temperature component renders correctly 1`] = `
 <WithStyles(ForwardRef(Container))
   className="makeStyles-container-3"
   maxWidth="lg"
@@ -25,7 +25,7 @@ exports[`Temperature renders correctly 1`] = `
 </WithStyles(ForwardRef(Container))>
 `;
 
-exports[`TemperatureChart renders correctly 1`] = `
+exports[`TemperatureChart Component Test TemperatureChart component renders correctly 1`] = `
 <ResponsiveContainer
   debounce={0}
   height={300}
@@ -34,6 +34,7 @@ exports[`TemperatureChart renders correctly 1`] = `
   <LineChart
     barCategoryGap="10%"
     barGap={4}
+    data={Array []}
     layout="horizontal"
     margin={
       Object {
@@ -50,7 +51,7 @@ exports[`TemperatureChart renders correctly 1`] = `
       allowDataOverflow={false}
       allowDecimals={true}
       allowDuplicatedCategory={true}
-      dataKey="timestamp"
+      dataKey="date"
       domain={
         Array [
           0,
@@ -70,7 +71,6 @@ exports[`TemperatureChart renders correctly 1`] = `
       reversed={false}
       scale="auto"
       tickCount={5}
-      tickFormatter={[Function]}
       type="category"
       width={0}
       xAxisId={0}
@@ -196,4 +196,125 @@ exports[`TemperatureChart renders correctly 1`] = `
     />
   </LineChart>
 </ResponsiveContainer>
+`;
+
+exports[`Visualisation Component Test Visualisation component renders correctly 1`] = `
+<WithStyles(ForwardRef(Grid))
+  item={true}
+  lg={12}
+  md={12}
+  xs={12}
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    item={true}
+    justify="space-between"
+    lg={12}
+    md={12}
+    style={
+      Object {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+      }
+    }
+    xs={12}
+  >
+    <WithStyles(ForwardRef(Typography))>
+      Temperature
+    </WithStyles(ForwardRef(Typography))>
+    <div
+      style={
+        Object {
+          "justifyContent": "center",
+        }
+      }
+    >
+      <DateRangePicker
+        calendarIcon={
+          <svg
+            className="react-daterange-picker__calendar-button__icon react-daterange-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              fill="none"
+              height="15"
+              width="15"
+              x="2"
+              y="2"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="0"
+              y2="4"
+            />
+            <line
+              x1="13"
+              x2="13"
+              y1="0"
+              y2="4"
+            />
+          </svg>
+        }
+        clearIcon={
+          <svg
+            className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="4"
+              x2="15"
+              y1="4"
+              y2="15"
+            />
+            <line
+              x1="15"
+              x2="4"
+              y1="4"
+              y2="15"
+            />
+          </svg>
+        }
+        closeCalendar={true}
+        isOpen={null}
+        name="daterange"
+        onChange={[Function]}
+        rangeDivider="–"
+        value={
+          Array [
+            "2019-09-23T18:32:58.927Z",
+            "2020-09-23T18:32:58.927Z",
+          ]
+        }
+      />
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="refresh"
+        onClick={[Function]}
+      >
+        <RefreshIcon
+          fontSize="small"
+        />
+      </WithStyles(ForwardRef(IconButton))>
+    </div>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    lg={12}
+    md={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(CircularProgress)) />
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
 `;

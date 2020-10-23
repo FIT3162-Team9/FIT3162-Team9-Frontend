@@ -16,58 +16,28 @@ import Temperature from './pages/TemperatureAnalysis';
 import {testing} from './helpers/TemperatureApi';
 import Popup from './components/Popup';
 
-it("About page renders without crashing", () => {
-  shallow(<About />);
-});
-
-it("About page renders correctly", () => {
-  const tree = shallow(<About />);
-  expect(toJson(tree)).toMatchSnapshot();
-});
 
 
-describe('Test for FFDI', () => {
-  it('should return correct bushfire rating', () => {
-    expect(FFDI(60,{humidity:100,windspeed:200},10)).toBe(150);
-    
-  });
-});
-
-describe("<Home />", () => {
-  it("Renders <Home /> component correctly", () => {
-
-    const {getByText}= render(<Home LGA='Banyule' station='76031' />);
-    expect(getByText(/Banyule/i)).toBeInTheDocument();
-  });
-});
-
-describe('Circle display correct data', () => {
-
-  it('Date Displayed correctly', () =>{
-    const {getByText} = render(<CircularProgressWithLabel day={17} month={3} bushfirerating={19.97}/>);
-    expect(getByText('17/3')).toBeInTheDocument();  
-  });
-
-  it('Date Displayed correctly', () =>{
-    const {getByText} = render(<CircularProgressWithLabel day={17} month={3} bushfirerating={19.97}/>);
-    expect(getByText('17/3')).toBeInTheDocument();  
-  });
-
-  it('Color returned correctly', () =>{
-    expect(bushfireColor(80)).toBe('#ff4040');
-  });
-});
-
-describe('FFDI correct data', () => {
-  it('Test case 1', () => {
+describe('FFDI: Function should return correct bushfire rating', () => {
+  it('Test Case 1 ~ Input{temperature:40,humidity:40,windspeed:40,droughtfactor:5} -> Output{bushfirerating:15.48}', () => {
      expect(FFDI(40,{humidity:40,windspeed:40},5)).toBe(15.48)
   });
 
-  it('Test case 2', () => {
+  it('Test Case 2 ~ Input{temperature:40,humidity:50,windspeed:80,droughtfactor:8} -> Output{bushfirerating:44.45}', () => {
     expect(FFDI(40,{humidity:50,windspeed:80},8)).toBe(44.45)
  });
-
+  it('Test Case 3 ~ Input{temperature:60,humidity:100,windspeed:200,droughtfactor:10} -> Output{bushfirerating:150}', () => {
+    expect(FFDI(60,{humidity:100,windspeed:200},10)).toBe(150);
+  
 });
+});
+
+
+
+
+
+
+
 
 // describe('routes using memory router', () => {
 

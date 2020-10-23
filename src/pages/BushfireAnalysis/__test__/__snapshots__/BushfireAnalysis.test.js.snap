@@ -1,6 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AnalysisChart renders correctly 1`] = `
+exports[`Analysis Component Test Analysis component renders correctly 1`] = `
+<WithStyles(ForwardRef(Grid))
+  item={true}
+  lg={12}
+  md={12}
+  xs={12}
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    item={true}
+    justify="space-between"
+    lg={12}
+    md={12}
+    style={
+      Object {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+      }
+    }
+    xs={12}
+  >
+    <WithStyles(ForwardRef(Typography))>
+      Bushfire Analysis
+    </WithStyles(ForwardRef(Typography))>
+    <div
+      style={
+        Object {
+          "justifyContent": "center",
+        }
+      }
+    >
+      <DateRangePicker
+        calendarIcon={
+          <svg
+            className="react-daterange-picker__calendar-button__icon react-daterange-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              fill="none"
+              height="15"
+              width="15"
+              x="2"
+              y="2"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="0"
+              y2="4"
+            />
+            <line
+              x1="13"
+              x2="13"
+              y1="0"
+              y2="4"
+            />
+          </svg>
+        }
+        clearIcon={
+          <svg
+            className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="4"
+              x2="15"
+              y1="4"
+              y2="15"
+            />
+            <line
+              x1="15"
+              x2="4"
+              y1="4"
+              y2="15"
+            />
+          </svg>
+        }
+        closeCalendar={true}
+        isOpen={null}
+        name="daterange"
+        rangeDivider="–"
+      />
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="refresh"
+      >
+        <RefreshIcon
+          fontSize="small"
+        />
+      </WithStyles(ForwardRef(IconButton))>
+    </div>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    item={true}
+    lg={12}
+    md={12}
+    xs={12}
+  >
+    <WithStyles(ForwardRef(CircularProgress)) />
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Grid))>
+`;
+
+exports[`Analysis Component Test AnalysisChart renders correctly 1`] = `
 <ResponsiveContainer
   debounce={0}
   height={300}
@@ -336,4 +449,117 @@ exports[`AnalysisChart renders correctly 1`] = `
     />
   </ComposedChart>
 </ResponsiveContainer>
+`;
+
+exports[`Bushfire Component Test Bushfirei component renders correctly 1`] = `
+<WithStyles(ForwardRef(Container))
+  className="makeStyles-container-6"
+  maxWidth="lg"
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      lg={9}
+      md={8}
+      xs={12}
+    >
+      <WithStyles(ForwardRef(Paper))
+        className="makeStyles-paper-2 makeStyles-autoHeight-3"
+      >
+        <Analysis
+          dateRange={
+            Array [
+              "2019-09-23T18:33:00.487Z",
+              "2020-09-23T18:33:00.487Z",
+            ]
+          }
+          refreshTemp={[Function]}
+          setDateRange={[Function]}
+          state={
+            Object {
+              "bushfireratings": true,
+              "bushfirezone": true,
+              "humidity": false,
+              "temperature": true,
+              "windspeed": false,
+            }
+          }
+          stationId="86068"
+          tempData={Array []}
+        />
+      </WithStyles(ForwardRef(Paper))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      lg={3}
+      md={4}
+      xs={12}
+    >
+      <WithStyles(ForwardRef(Paper))
+        className="makeStyles-sliderHeight-4"
+      >
+        <CustomizedSlider
+          method={
+            Object {
+              "setDrought": [Function],
+              "setHumidity": [Function],
+              "setWind": [Function],
+            }
+          }
+        />
+      </WithStyles(ForwardRef(Paper))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      className="makeStyles-filterHeight-5"
+      item={true}
+      lg={3}
+      md={4}
+      xs={12}
+    >
+      <BushfireFilter
+        method={
+          Object {
+            "constLevel": Array [
+              11,
+              12,
+              24,
+              24,
+              null,
+              null,
+            ],
+            "setState": [Function],
+            "state": Object {
+              "bushfireratings": true,
+              "bushfirezone": true,
+              "humidity": false,
+              "temperature": true,
+              "windspeed": false,
+            },
+          }
+        }
+      />
+      <About />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      className="makeStyles-filterHeight-5"
+      item={true}
+      lg={3}
+      md={4}
+      xs={12}
+    >
+      <Popup
+        props={
+          Object {
+            "handleClickOpen": [Function],
+            "handleClose": [Function],
+            "open": false,
+          }
+        }
+      />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Container))>
 `;

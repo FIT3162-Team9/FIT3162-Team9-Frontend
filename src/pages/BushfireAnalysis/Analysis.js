@@ -15,11 +15,14 @@ import FormControl from '@material-ui/core/FormControl';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 function Analysis(props){
+
     
+    const {setDateRange,dateRange,refreshTemp,tempData,state} = props;
     return(
-        <Grid xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={12} lg={12}>
             <Grid
                 container
+                item
                 xs={12}
                 md={12}
                 lg={12}
@@ -39,16 +42,16 @@ function Analysis(props){
                         </Select>
                     </FormControl> */}
                     <DateRangePicker
-                        onChange={props.method.setDateRange}
-                        value={props.method.dateRange}
+                        // onChange={setDateRange}
+                        value={dateRange}
                     />
-                     <IconButton aria-label="refresh" onClick={props.method.refreshTemp}>
+                     <IconButton aria-label="refresh" onClick={refreshTemp}>
                         <RefreshIcon fontSize="small" />
                     </IconButton>
                 </div>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
-                {(props.method.tempData.length !== 0) ? (<Chart data={{data:props.method.tempData, state:props.method.state}}/>) : (<CircularProgress/>)}
+                {(tempData.length !== 0) ? (<Chart data={{data:tempData, state:state}}/>) : (<CircularProgress/>)}
             </Grid>
         </Grid>
 

@@ -13,7 +13,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from '../pages/Dashboard';
 import Bushfire from '../pages/BushfireAnalysis';
 import Temperature from '../pages/TemperatureAnalysis';
-import About from '../pages/About';
+import About from './About';
 import "./../App.css";
 
 import InputLabel from '@material-ui/core/InputLabel';
@@ -101,7 +101,6 @@ const useStyles = makeStyles((theme) => ({
   appName:{
     fontFamily: 'Quicksand',
     fontSize: '28px',
-    transform: '[{rotate: -90deg}]',
     color: 'white',//'#255C59',
     textAlign: 'center',
     paddingTop: '16px',

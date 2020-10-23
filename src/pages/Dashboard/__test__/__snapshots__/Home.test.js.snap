@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AnalysisChart renders correctly 1`] = `
+exports[`Home renders correctly 1`] = `
 <WithStyles(ForwardRef(Container))
   className="makeStyles-container-3"
   maxWidth="lg"
@@ -30,75 +30,6 @@ exports[`AnalysisChart renders correctly 1`] = `
           Selected Station: 
           86036
         </WithStyles(ForwardRef(Typography))>
-        <DateRangePicker
-          calendarIcon={
-            <svg
-              className="react-daterange-picker__calendar-button__icon react-daterange-picker__button__icon"
-              height={19}
-              stroke="black"
-              strokeWidth={2}
-              viewBox="0 0 19 19"
-              width={19}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                fill="none"
-                height="15"
-                width="15"
-                x="2"
-                y="2"
-              />
-              <line
-                x1="6"
-                x2="6"
-                y1="0"
-                y2="4"
-              />
-              <line
-                x1="13"
-                x2="13"
-                y1="0"
-                y2="4"
-              />
-            </svg>
-          }
-          className="makeStyles-dateFont-10"
-          clearIcon={
-            <svg
-              className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
-              height={19}
-              stroke="black"
-              strokeWidth={2}
-              viewBox="0 0 19 19"
-              width={19}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="4"
-                x2="15"
-                y1="4"
-                y2="15"
-              />
-              <line
-                x1="15"
-                x2="4"
-                y1="4"
-                y2="15"
-              />
-            </svg>
-          }
-          closeCalendar={true}
-          isOpen={null}
-          name="daterange"
-          onChange={[Function]}
-          rangeDivider="–"
-          value={
-            Array [
-              "2019-09-23T01:58:42.969Z",
-              "2020-09-23T01:58:42.969Z",
-            ]
-          }
-        />
         <WithStyles(ForwardRef(Button))
           className="makeStyles-addButton-11"
           onClick={[Function]}
@@ -112,6 +43,7 @@ exports[`AnalysisChart renders correctly 1`] = `
         </WithStyles(ForwardRef(Button))>
         <WithStyles(ForwardRef(Divider)) />
       </WithStyles(ForwardRef(Grid))>
+      <About />
     </WithStyles(ForwardRef(Paper))>
   </WithStyles(ForwardRef(Grid))>
 </WithStyles(ForwardRef(Container))>

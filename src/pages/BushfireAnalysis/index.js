@@ -219,13 +219,12 @@ function Bushfire(props) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8} lg={9}>
             <Paper className={autoHeightPaper}>
-                <Analysis method={{
-                  setDateRange:setDateRange, 
-                  refreshTemp:refreshTemp,
-                  stationId:props.station,
-                  dateRange:dateRange,
-                  tempData:maxTemp,
-                  state:state}}/>
+                <Analysis setDateRange = {setDateRange} 
+                  refreshTemp = {refreshTemp}
+                  stationId = {props.station}
+                  dateRange = {dateRange}
+                  tempData = {maxTemp}
+                  state = {state} />
                 {/* <BushfireChart weather ={stateWeather} /> */}
             </Paper>
           </Grid>

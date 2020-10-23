@@ -200,10 +200,10 @@ function Home(props) {
                     <Typography className={classes.headerFont}>
                         Selected Station: {station ? station : "None"}
                     </Typography>
-                    <DateRangePicker className={classes.dateFont}
+                    {/* <DateRangePicker className={classes.dateFont}
                       onChange={setDateRange}
                       value={dateRange}
-                      />
+                      /> */}
                     <Button className={classes.addButton} onClick={()=>callData()}>
                         Add User Log
                     </Button>
