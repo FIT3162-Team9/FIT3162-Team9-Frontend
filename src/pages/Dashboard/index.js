@@ -16,6 +16,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
 import { getHumidityWind } from '../../helpers/HumidityWindApi';
 import { snakeToTitle } from '../../helpers/utils'
+import Legend from '../../components/Legend';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -212,6 +213,7 @@ function Home(props) {
                     <Divider></Divider>
                 </Grid>            
                 {userLog}
+                <Legend/>
               </Paper>
             </Grid>
         </Container>

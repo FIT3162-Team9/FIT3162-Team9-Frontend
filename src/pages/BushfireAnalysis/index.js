@@ -12,6 +12,7 @@ import moment from 'moment';
 import { getTemperature, getForecastedTemperature } from '../../helpers/TemperatureApi';
 import { getHumidityWind } from '../../helpers/HumidityWindApi';
 import Popup from '../../components/Popup';
+import Legend from '../../components/Legend';
 import PropTypes from 'prop-types';
 import {FFDI} from './FFDI';
 
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
       width: '250px',
     },
     filterHeight:{
-      marginTop: '-30px',
+      marginTop: '-20px',
       height: '50px',
       width: 'auto',
 
@@ -234,12 +235,11 @@ function Bushfire(props) {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={3} className={classes.filterHeight}>
-            
-                <BushfireFilter method={{state:state, setState:setState, constLevel: constLevel}}/>
-
+              <BushfireFilter method={{state:state, setState:setState, constLevel: constLevel}}/>
+              <Legend/>
           </Grid>
           <Grid item xs={12} md={4} lg={3} className={classes.filterHeight}>
-                <Popup props={{open:open, handleClickOpen:handleClickOpen, handleClose:handleClose}}/>
+              <Popup props={{open:open, handleClickOpen:handleClickOpen, handleClose:handleClose}}/>
           </Grid>
         </Grid>
       </Container>  

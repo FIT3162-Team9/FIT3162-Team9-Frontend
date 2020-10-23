@@ -28,7 +28,7 @@ function About() {
   const autoHeightPaper = clsx(classes.paper, classes.autoHeight)
 
   return (
-          <Paper className={autoHeightPaper}>
+          <Paper style={{marginTop: 70}} className={autoHeightPaper}>
             <div style={{padding: 10}}>
               The fire danger ratings can be interpretted using the following table (<a href={'https://en.wikipedia.org/wiki/McArthur_Forest_Fire_Danger_Index'}>Source</a>)
             </div>
