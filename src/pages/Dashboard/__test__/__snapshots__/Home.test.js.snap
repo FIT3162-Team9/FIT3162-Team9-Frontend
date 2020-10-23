@@ -10,7 +10,7 @@ exports[`AnalysisChart renders correctly 1`] = `
     spacing={3}
   >
     <WithStyles(ForwardRef(Paper))
-      className="makeStyles-outerPaper-7"
+      className="makeStyles-outerPaper-8"
     >
       <WithStyles(ForwardRef(Grid))
         item={true}
@@ -19,15 +19,88 @@ exports[`AnalysisChart renders correctly 1`] = `
         xs={12}
       >
         <WithStyles(ForwardRef(Typography))
-          className="makeStyles-headerFont-8"
+          className="makeStyles-headerFont-9"
         >
-          SELECTED LGA: 
-          banyule
-           / SELECTED STATION: 
+          Selected LGA: 
+          Banyule
+        </WithStyles(ForwardRef(Typography))>
+        <WithStyles(ForwardRef(Typography))
+          className="makeStyles-headerFont-9"
+        >
+          Selected Station: 
           86036
         </WithStyles(ForwardRef(Typography))>
+        <DateRangePicker
+          calendarIcon={
+            <svg
+              className="react-daterange-picker__calendar-button__icon react-daterange-picker__button__icon"
+              height={19}
+              stroke="black"
+              strokeWidth={2}
+              viewBox="0 0 19 19"
+              width={19}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                fill="none"
+                height="15"
+                width="15"
+                x="2"
+                y="2"
+              />
+              <line
+                x1="6"
+                x2="6"
+                y1="0"
+                y2="4"
+              />
+              <line
+                x1="13"
+                x2="13"
+                y1="0"
+                y2="4"
+              />
+            </svg>
+          }
+          className="makeStyles-dateFont-10"
+          clearIcon={
+            <svg
+              className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
+              height={19}
+              stroke="black"
+              strokeWidth={2}
+              viewBox="0 0 19 19"
+              width={19}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="4"
+                x2="15"
+                y1="4"
+                y2="15"
+              />
+              <line
+                x1="15"
+                x2="4"
+                y1="4"
+                y2="15"
+              />
+            </svg>
+          }
+          closeCalendar={true}
+          isOpen={null}
+          name="daterange"
+          onChange={[Function]}
+          rangeDivider="–"
+          value={
+            Array [
+              "2019-09-23T01:58:42.969Z",
+              "2020-09-23T01:58:42.969Z",
+            ]
+          }
+        />
         <WithStyles(ForwardRef(Button))
-          className="makeStyles-addButton-10"
+          className="makeStyles-addButton-11"
           onClick={[Function]}
         >
           Add User Log

@@ -8,6 +8,7 @@ exports[`AnalysisChart renders correctly 1`] = `
     <WithStyles(CssBaseline) />
     <WithStyles(ForwardRef(AppBar))
       className="makeStyles-appBar-3 makeStyles-appBarShift-4"
+      elevation={0}
       position="absolute"
     >
       <WithStyles(ForwardRef(Toolbar))
@@ -25,25 +26,25 @@ exports[`AnalysisChart renders correctly 1`] = `
               exact={true}
               path="/"
             >
-              DASHBOARD
+              Dashboard
             </Route>
             <Route
               exact={true}
               path="/temperature"
             >
-              VISUALISATION 
+              Temperature
             </Route>
             <Route
               exact={true}
               path="/bushfire"
             >
-              ANALYSIS
+              Bushfire Risk
             </Route>
             <Route
               exact={true}
               path="/about"
             >
-              ABOUT
+              About
             </Route>
           </Switch>
         </WithStyles(ForwardRef(Typography))>
@@ -132,6 +133,9 @@ exports[`AnalysisChart renders correctly 1`] = `
     <main
       className="makeStyles-content-9"
     >
+      <div
+        className="makeStyles-appBarSpacer-8"
+      />
       <div
         className="makeStyles-appBarSpacer-8"
       />

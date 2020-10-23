@@ -1,7 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`About page renders correctly 1`] = `
-<div>
-  Modify content in pages folder
-</div>
+<WithStyles(ForwardRef(Container))
+  className="makeStyles-container-1"
+  maxWidth="lg"
+>
+  <WithStyles(ForwardRef(Grid))
+    container={true}
+    spacing={3}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+      lg={12}
+      md={12}
+      xs={12}
+    >
+      <About />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Container))>
 `;
