@@ -1,20 +1,20 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+// import React from 'react';
+// import { render } from '@testing-library/react';
 
-import { shallow, mount } from "enzyme";
-import { act } from 'react-dom/test-utils';
-import toJson from "enzyme-to-json";
-import About from './pages/About'
-import {FFDI} from './pages/BushfireAnalysis/FFDI';
-import Home from './pages/Dashboard';
-import ShallowRenderer from 'react-test-renderer/shallow';
-import CircularProgressWithLabel,{bushfireColor} from './pages/Dashboard/Circle';
-import Dashboard, {Routes} from './pages';
-import { MemoryRouter } from 'react-router';
-import { Route } from 'react-router-dom';
-import Temperature from './pages/TemperatureAnalysis';
-import {testing} from './helpers/TemperatureApi';
-import Popup from './components/Popup';
+// import { shallow, mount } from "enzyme";
+// import { act } from 'react-dom/test-utils';
+// import toJson from "enzyme-to-json";
+// import About from './pages/About'
+import {FFDI} from './pages/BushfireAnalysis/FireIndex';
+// import Home from './pages/Dashboard';
+// import ShallowRenderer from 'react-test-renderer/shallow';
+// import CircularProgressWithLabel,{bushfireColor} from './pages/Dashboard/Circle';
+// import Dashboard, {Routes} from './pages';
+// import { MemoryRouter } from 'react-router';
+// import { Route } from 'react-router-dom';
+// import Temperature from './pages/TemperatureAnalysis';
+// import {testing} from './helpers/TemperatureApi';
+// import Popup from './components/Popup';
 
 
 
