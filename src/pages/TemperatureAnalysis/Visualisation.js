@@ -22,13 +22,17 @@ import { temperature as data } from '../../mocks/tempdata';
 function TemperatureVisualisation(props){
     const [tempData, setTempData] = useState([]);
     const [forecastedData, setForecastedData] = useState([]);
-    const [combinedData, setCombinedData] = useState([]);
+    const [combinedData, setCombinedData] = useState([]); // Used to combine historic and forecasted data
+
+    // Date range initialised with values from last month last year to the month before
     const [dateRange, setDateRange] = useState([moment().subtract(13, 'months'), moment().subtract(1, 'month')]);
     
+    // Refresh temp called when the station changes
     useEffect(() => {
         refreshTemp();
     }, [props.station])
 
+    // Function called to refresh the data based on the attributes of station and timestamps
     function refreshTemp() {
         let formattedDateRange = dateRange.map(date => moment(date).unix());
         console.log('dateRange', formattedDateRange);
@@ -38,6 +42,7 @@ function TemperatureVisualisation(props){
         getForecastedTemperature(props.station, setForecastedData, startTimestamp, endTimestamp);
     }
 
+    // When tempData and forecastedData are refreshed 
     useEffect(() => {
         setCombinedData(tempData.concat(forecastedData));
     }, [tempData, forecastedData])
@@ -53,6 +58,7 @@ function TemperatureVisualisation(props){
                 justify="space-between"
                 style={{paddingRight: 10, paddingLeft: 10, paddingTop: 10}}
             >
+                {/* Sets the title bar for Temperature chart with Title, Date Picker and Refresh button */}
                 <Typography>Temperature</Typography>
                 <div style={{justifyContent: 'center'}}>
                     <DateRangePicker
@@ -65,6 +71,7 @@ function TemperatureVisualisation(props){
                 </div>
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
+                {/* When there is data to be presented, show the chart instead of the loading screen */}
                 {(combinedData.length !== 0) ? (<Chart data={combinedData}/>) : (<CircularProgress/>)}
             </Grid>
         </Grid>

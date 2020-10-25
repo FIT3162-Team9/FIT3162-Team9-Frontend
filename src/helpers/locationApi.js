@@ -1,35 +1,27 @@
-// Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
 
-// If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import "firebase/analytics";
+import { firebaseConfig } from "./firebase";
 
-// Add the Firebase products that you want to use
+import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBXkrUCPaNezZ2spIV5Rl6bgTHMXKA8cjc",
-    authDomain: "fit3162-team9.firebaseapp.com",
-    databaseURL: "https://fit3162-team9.firebaseio.com",
-    projectId: "fit3162-team9",
-    storageBucket: "fit3162-team9.appspot.com",
-    messagingSenderId: "462264365721",
-    appId: "1:462264365721:web:fbf3ea809fe572e42b3e08",
-    measurementId: "G-W55P86GJRE"
-  };
-
-// Initialize Firebase
+// Initialize Firebase if not already initialized
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+
 export const getStates = () => {
-  // Hardcoded states
+  // Hardcoded states values to be used to query database
   return ['nsw', 'nt', 'qld', 'sa', 'tas', 'vic', 'wa'];
 }
 
+/**
+ * return array of lga in a given state
+ * @param   {string}    state              State name
+ * @param   {function}  setLGAs            Function to set array with lga names from the module that called it
+ */  
 export const getLGAs = async (state, setLGAs) => {
   const db = firebase.firestore();
 
@@ -42,6 +34,12 @@ export const getLGAs = async (state, setLGAs) => {
   })
 }
 
+/**
+ * return array of stations in a given state and lga
+ * @param   {string}    state              State name
+ * @param   {number}    station            Station number
+ * @param   {function}  setStations        Function to set array with station ids from the module that called it
+ */   
 export const getStations = async (state, station, setStations) => {
   const db = firebase.firestore();
 

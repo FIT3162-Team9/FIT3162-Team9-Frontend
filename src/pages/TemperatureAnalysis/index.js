@@ -30,17 +30,11 @@ const useStyles = makeStyles(theme => ({
 
 function Temperature(props) {
 
-
-  useEffect(() => {
-    console.log('TEMPERATURE PROPS ---- ', props.station);
-  }, [props])
-
-  //Requires attention: Year of start date should be earlier than year of end date.  
-
+  // Use the styles defined above in the following functions 
   const classes = useStyles()
-
   const autoHeightPaper = clsx(classes.paper, classes.autoHeight)
 
+  // Returns a container with the temperature visualisation graph
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
