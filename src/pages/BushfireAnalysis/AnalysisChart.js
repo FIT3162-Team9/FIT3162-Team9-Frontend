@@ -25,7 +25,7 @@ export default ({ data }) => {
       <ResponsiveContainer height={300} width="95%">
         <ComposedChart data={data ? data.data : undefined}>
           <XAxis dataKey="date" />
-          <YAxis unit='°C' />
+          <YAxis unit='' />
           <Tooltip/>{/* <Tooltip content={<CustomTooltip />}/> */}
           <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
           <Area type="monotone" fillOpacity="0.2" dataKey={state.bushfirezone ? "low" : "" } stackId="1" fill={'#addfad'} stroke={'white'}  dot={false} activeDot={false}/>

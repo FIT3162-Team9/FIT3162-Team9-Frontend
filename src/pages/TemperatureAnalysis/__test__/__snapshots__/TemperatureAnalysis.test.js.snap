@@ -293,8 +293,8 @@ exports[`Visualisation Component Test Visualisation component renders correctly 
         rangeDivider="–"
         value={
           Array [
-            "2019-09-23T18:32:58.927Z",
-            "2020-09-23T18:32:58.927Z",
+            "2019-09-25T04:44:39.225Z",
+            "2020-09-25T04:44:39.225Z",
           ]
         }
       />

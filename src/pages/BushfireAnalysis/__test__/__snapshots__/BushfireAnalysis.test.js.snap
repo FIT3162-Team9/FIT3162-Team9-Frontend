@@ -186,7 +186,7 @@ exports[`Analysis Component Test AnalysisChart renders correctly 1`] = `
       scale="auto"
       tickCount={5}
       type="number"
-      unit="°C"
+      unit=""
       width={60}
       yAxisId={0}
     />
@@ -472,8 +472,8 @@ exports[`Bushfire Component Test Bushfirei component renders correctly 1`] = `
         <Analysis
           dateRange={
             Array [
-              "2019-09-23T18:33:00.487Z",
-              "2020-09-23T18:33:00.487Z",
+              "2019-09-25T04:44:39.730Z",
+              "2020-09-25T04:44:39.730Z",
             ]
           }
           refreshTemp={[Function]}
