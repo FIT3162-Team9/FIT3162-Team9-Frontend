@@ -19,10 +19,6 @@ export const InitUser = () => {
             var uid = user.uid;
             console.log(`Logged in as anonymous: ${isAnonymous}`)
             console.log(`User id: ${uid}`)
-            // ...
-          } else {
-            // User is signed out.
-            // ...
           }
     }
 
@@ -31,15 +27,17 @@ export const InitUser = () => {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            // ...
+            console.log("Error", errorCode, errorMessage);
+
+            // Attempt to initialise again
             initialise();
           });
     }
     
-  
     React.useEffect(() => {
         initialise();
 
+        // Rmo subscription when component 
         const unsubscribe = firebase.auth().onAuthStateChanged(onAuthStateChanged);
         return unsubscribe;
     }, []);

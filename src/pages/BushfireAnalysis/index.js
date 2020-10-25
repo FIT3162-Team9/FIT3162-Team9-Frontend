@@ -303,6 +303,7 @@ function Bushfire(props) {
           <Paper className={classes.sliderHeight}>
             <CustomizedSlider
               method={{
+                setWind: handleWind,
                 setDrought: handleDrought,
               }}
             />

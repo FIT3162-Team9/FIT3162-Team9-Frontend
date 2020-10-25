@@ -38,7 +38,6 @@ export const getTemperature = async (station='', setTempData, startAt, endAt) =>
 
   var tempStationRef = db.collection('data').doc('temperature').collection(station).orderBy("timestamp").startAt(startAt).endAt(endAt);
   
-  
   return tempStationRef.onSnapshot((snapshot) => {
     const tempData = [];
     snapshot.forEach((doc) => tempData.push({ ...doc.data(), id: doc.id }));
