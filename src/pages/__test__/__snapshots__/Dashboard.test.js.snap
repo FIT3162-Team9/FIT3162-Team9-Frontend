@@ -123,11 +123,7 @@ exports[`AnalysisChart renders correctly 1`] = `
       <WithStyles(ForwardRef(List))
         className="makeStyles-mainItems-11"
       >
-         
-        <Items
-          action={[Function]}
-        />
-         
+        <Items />
       </WithStyles(ForwardRef(List))>
     </WithStyles(ForwardRef(Drawer))>
     <main

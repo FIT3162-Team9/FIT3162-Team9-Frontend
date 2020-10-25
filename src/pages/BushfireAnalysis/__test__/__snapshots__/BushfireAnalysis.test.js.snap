@@ -469,11 +469,12 @@ exports[`Bushfire Component Test Bushfirei component renders correctly 1`] = `
       <WithStyles(ForwardRef(Paper))
         className="makeStyles-paper-2 makeStyles-autoHeight-3"
       >
-        <Analysis
+        <AnalysisContainer
+          climateData={Array []}
           dateRange={
             Array [
-              "2019-09-25T04:44:39.730Z",
-              "2020-09-25T04:44:39.730Z",
+              "2019-09-25T07:09:54.293Z",
+              "2020-09-25T07:09:54.293Z",
             ]
           }
           refreshTemp={[Function]}
@@ -488,7 +489,6 @@ exports[`Bushfire Component Test Bushfirei component renders correctly 1`] = `
             }
           }
           stationId="86068"
-          tempData={Array []}
         />
       </WithStyles(ForwardRef(Paper))>
     </WithStyles(ForwardRef(Grid))>
@@ -519,7 +519,7 @@ exports[`Bushfire Component Test Bushfirei component renders correctly 1`] = `
       md={4}
       xs={12}
     >
-      <BushfireFilter
+      <ChartFilter
         method={
           Object {
             "constLevel": Array [
