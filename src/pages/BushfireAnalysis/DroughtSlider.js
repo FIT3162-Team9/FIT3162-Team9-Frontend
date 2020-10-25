@@ -146,11 +146,6 @@ export default function CustomizedSlider(props) {
         />
         <div className={classes.margin} />
       </div>
-      {/* <Typography  gutterBottom>Relative humidity (Disabled)</Typography>
-        <HumiditySlider disabled='true' onChange={props.method.setHumidity} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={0} />
-      <div className={classes.margin} />
-        <Typography  gutterBottom>Wind speed (Disabled)</Typography>
-        <WindSlider disabled='true'onChange={props.method.setWind} min={0} max={75} valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={0} /> */}
     </div>
   );
 }

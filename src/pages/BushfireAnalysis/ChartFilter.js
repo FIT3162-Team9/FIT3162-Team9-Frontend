@@ -17,9 +17,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Component which allow users to display and hide data series on the Bushfire Risk Analysis chart
+ * @param {object} props.method.state                 props object with key value {temperature},{humidity},{windspeed},{bushfireratings},{bushfirezone}
+ * @param {bool} props.method.state.temperature       boolean which represents whether temperature is active on chart
+ * @param {bool} props.method.state.humidity          boolean which represents whether humidity is active on chart
+ * @param {bool} props.method.state.windspeed         boolean which represents whether windspeed is active on chart
+ * @param {bool} props.method.state.bushfireratings   boolean which represents whether bushfire ratings is active on chart
+ * @param {array} props.method.state.bushfirezone     boolean which represents whether multi-colored background is active on chart
+ */
 export default function ChartFilter(props) {
   const classes = useStyles();
 
+  /**
+   * Enable and Disable data series on Bushfire Risk Analysis chart
+   * function accepts event where event is the button clicked by user
+   * then convert the boolean associated with the event to oposite of its current value
+   */
   const handleChange = (event) => {
     props.method.setState({
       ...props.method.state,
@@ -36,6 +50,7 @@ export default function ChartFilter(props) {
         transform: "translate(-60%)",
       }}
     >
+      {/* Form Control for Temperature Data Series */}
       <FormGroup row>
         <FormControlLabel
           control={
@@ -51,6 +66,7 @@ export default function ChartFilter(props) {
           }
           label="Temperature"
         />
+        {/* Form Control for Humidity Data Series */}
         <FormControlLabel
           control={
             <Checkbox
@@ -66,6 +82,7 @@ export default function ChartFilter(props) {
           }
           label="Humidity"
         />
+        {/* Form Control for Windspeed Data Series */}
         <FormControlLabel
           control={
             <Checkbox
@@ -81,6 +98,7 @@ export default function ChartFilter(props) {
           }
           label="Windspeed"
         />
+        {/* Form Control for Bushfire Rating Data Series */}
         <FormControlLabel
           control={
             <Checkbox

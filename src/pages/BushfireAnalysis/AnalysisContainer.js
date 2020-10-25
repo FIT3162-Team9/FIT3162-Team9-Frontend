@@ -6,11 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import PropTypes from "prop-types";
 
 /**
  * AnalysisGrid Component containing the chart component for Bushfire Analysis
  * @param   {object} props               props passed from Bushfire Component
- * @param   {func} props.setDateRange    ..
+ * @param   {func} props.setDateRange    State Hook that sets date range
  * @param   {date} props.dateRange       start date and end date in timestamp format
  * @param   {func} props.refreshTemp     function that refreshes/updates the chart
  * @param   {[Object]} props.climateData array of climate data sets with data key {temperature},{humidity},{windspeed}
@@ -47,5 +48,6 @@ function AnalysisContainer(props) {
     </Grid>
   );
 }
+
 
 export default AnalysisContainer;

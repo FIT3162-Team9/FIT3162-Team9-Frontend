@@ -72,16 +72,13 @@ function Bushfire(props) {
   const [tempData, setTempData] = useState([]);
   const [pastTempData, setPastTempData] = useState([]);
   const [humidityWindData, setHumidityWind] = useState([]);
-  const [constLevel, setLevel] = useState([11, 12, 24, 24, null, null]);
-  const [maxTemperature, setMaxTemperature] = useState(0);
+  const [constLevel, setLevel] = useState([11, 12, 24, 24, 24, null]);
   const [dateRange, setDateRange] = useState([
     moment().subtract(13, "months"),
     moment().subtract(1, "month"),
   ]);
 
-  const [maxTemp, setMaxTemp] = useState([]);
-
-  // const stationId = props.station.station;
+  const [climateData, setClimateData] = useState([]);
 
   const [state, setState] = React.useState({
     temperature: true,
@@ -107,6 +104,7 @@ function Bushfire(props) {
 
   /**
    * White listed LGAs
+   * LGAs that are currently supported by the Web App
    */
 
   const validLGA = [
@@ -133,6 +131,7 @@ function Bushfire(props) {
     const startTimestamp = formattedDateRange[0];
     const endTimestamp = formattedDateRange[1];
 
+    //Check if selected LGA belongs to whitelisted LGA
     if (!validLGA.includes(props.LGA)) {
       handleClickOpen();
       return;
@@ -152,9 +151,7 @@ function Bushfire(props) {
       }
     }
 
-    let max = 0;
-    data.forEach((doc) => (doc.max > max ? (max = doc.max) : (max = max)));
-    setMaxTemperature(max);
+    //Calls Humidity & Windspeed data from Firestore given the LGA, start date and end date.
     getHumidityWind(
       props.LGA,
       (db_hw) => {
@@ -164,6 +161,7 @@ function Bushfire(props) {
       startTimestamp,
       endTimestamp
     );
+    //Calls Forecasted Temperature data from Firestore given the stationID, start date and end date.
     getForecastedTemperature(
       props.station,
       (db_temp) => {
@@ -173,6 +171,7 @@ function Bushfire(props) {
       startTimestamp,
       endTimestamp
     );
+    //Calls Past Temperature data from Firestore given the stationID, start date and end date.
     getTemperature(
       props.station,
       (db_past) => {
@@ -188,9 +187,10 @@ function Bushfire(props) {
    * Calculates bushfire ratings using climate data (temperature,humidity,windspeed) from a range of selected date
    */
   function updateChart() {
+    //this array will store both past and forecasted temperature to be displayed on chart as a single data series
     let climateData = [];
-    console.log("data", humidityWindData, pastTempData, tempData);
 
+    //Create a dictionary data structure to store humidity and windspeed data with "timestamp" as key
     var dict = new Map();
     humidityWindData.forEach((doc) =>
       dict.set(doc["timestamp"], {
@@ -199,6 +199,11 @@ function Bushfire(props) {
       })
     );
 
+    /**
+     * map humidity and windspeed data to the fetched past temperature data
+     * by pushing old temperature data to a new array together with
+     * humidity and windspeed data retrieved from dictionary with the key "timestamp"
+     */
     pastTempData.forEach((doc) =>
       climateData.push({
         humidity: dict.get(doc["timestamp"])
@@ -223,6 +228,11 @@ function Bushfire(props) {
       })
     );
 
+    /**
+     * map humidity and windspeed data to the fetched forecasted temperature data
+     * by pushing old temperature data to a new array together with
+     * humidity and windspeed data retrieved from dictionary by "timestamp"
+     */
     tempData.forEach((doc) =>
       climateData.push({
         humidity: dict.get(doc["timestamp"])
@@ -247,21 +257,7 @@ function Bushfire(props) {
       })
     );
 
-    let max = FFDI(maxTemperature);
-    setMaxTemp(climateData);
-    console.log("climateData", climateData);
-
-    if (max > 99) {
-      let level = [...constLevel];
-      level[5] = max - 100;
-      level[4] = 24;
-      setLevel(level);
-    } else {
-      let level = [...constLevel];
-      level[5] = 0;
-      max > 74 ? (level[4] = max - 75) : (level[4] = 0);
-      setLevel(level);
-    }
+    setClimateData(climateData);
   }
 
   useEffect(() => {
@@ -276,24 +272,6 @@ function Bushfire(props) {
   }, [pastTempData]);
 
   //HANDLE SLIDERS
-  const handleHumidity = (e, val) => {
-    setWeatherSlider([
-      String(val),
-      stateWeather[1],
-      stateWeather[2],
-      stateWeather[3],
-    ]);
-    updateChart();
-  };
-  const handleWind = (e, val) => {
-    setWeatherSlider([
-      stateWeather[0],
-      String(val),
-      stateWeather[2],
-      stateWeather[3],
-    ]);
-    updateChart();
-  };
   const handleDrought = (e, val) => {
     setWeatherSlider([
       stateWeather[0],
@@ -315,7 +293,7 @@ function Bushfire(props) {
               refreshTemp={refreshTemp}
               stationId={props.station}
               dateRange={dateRange}
-              climateData={maxTemp}
+              climateData={climateData}
               state={state}
             />
             {/* <BushfireChart weather ={stateWeather} /> */}
@@ -325,8 +303,6 @@ function Bushfire(props) {
           <Paper className={classes.sliderHeight}>
             <CustomizedSlider
               method={{
-                setHumidity: handleHumidity,
-                setWind: handleWind,
                 setDrought: handleDrought,
               }}
             />
